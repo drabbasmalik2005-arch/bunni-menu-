@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
@@ -9,7 +8,7 @@
     <title>بنّي كافيه | Bunni Menu</title>
     
     <!-- Preload Logo for Splash Screen Animation -->
-    <link rel="preload" href="https://i.postimg.cc/vDZ1S2X8/logo.jpg" as="image">
+    <link rel="preload" href="images/splash-logo.png" as="image">
     
     <!-- خطوط عربية فاخرة -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,7 +53,7 @@
         }
     </script>
     <style>
-        /* === EXISTING CSS (DO NOT MODIFY) === */
+        /* === EXISTING CSS === */
         html, body {
             overflow-x: hidden;
             width: 100%;
@@ -87,8 +86,9 @@
             border-bottom: 1px solid #333333;
         }
 
+        /* تنسيق أزرار الأقسام الفاخرة وتفاعلها */
         .nav-pill {
-            transition: all 0.25s ease;
+            transition: all 0.3s ease;
             white-space: nowrap;
         }
         .nav-pill.active {
@@ -96,10 +96,19 @@
             color: #D4A373;
             border-color: #2C1E16;
         }
+        .nav-pill.active .nav-icon-box {
+            background-color: #D4A373 !important;
+            color: #ffffff !important;
+        }
+        
         html.dark .nav-pill.active {
             background-color: #D4A373;
             color: #121212;
             border-color: #D4A373;
+        }
+        html.dark .nav-pill.active .nav-icon-box {
+            background-color: #2C1E16 !important;
+            color: #D4A373 !important;
         }
 
         .menu-category { scroll-margin-top: 140px; } 
@@ -118,68 +127,67 @@
         .marquee-container { overflow: hidden; white-space: nowrap; }
         .marquee-content { display: inline-block; animation: marquee 25s linear infinite; }
 
-        /* === PREMIUM SPLASH SCREEN ANIMATION CSS === */
+        /* === PREMIUM SPLASH SCREEN CSS === */
         #premium-splash {
             position: fixed;
             inset: 0;
             z-index: 999999;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            background-color: rgba(253, 251, 247, 0.98);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: #FDFBF7;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 1;
         }
         html.dark #premium-splash {
-            background-color: rgba(18, 18, 18, 0.98);
-        }
-
-        .splash-logo-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transform: scale(0.92);
-            animation: splash-brand-reveal 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-
-        .splash-logo-glow {
-            position: absolute;
-            width: 130%;
-            height: 130%;
-            background: radial-gradient(circle, rgba(212, 163, 115, 0.25) 0%, rgba(212, 163, 115, 0) 70%);
-            border-radius: 50%;
-            z-index: 1;
-            opacity: 0;
-            animation: splash-glow-reveal 2s ease 0.2s forwards;
+            background-color: #121212;
         }
 
         .splash-logo-img {
             width: 140px;
             height: 140px;
-            border-radius: 50%;
             object-fit: cover;
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 15px 35px -10px rgba(44, 30, 22, 0.15);
+            border-radius: 30px;
+            box-shadow: 0 20px 40px -10px rgba(44, 30, 22, 0.2);
+            opacity: 0;
+            transform: scale(0.85);
+            animation: logo-elegant-fade 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            will-change: transform, opacity;
+        }
+        html.dark .splash-logo-img {
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8);
         }
 
-        @keyframes splash-brand-reveal {
-            0% { opacity: 0; transform: scale(0.92) translateY(0); }
-            22.7% { opacity: 1; transform: scale(0.95) translateY(0); }
-            36.3% { transform: scale(1) translateY(0); }
-            54.5% { transform: scale(1) translateY(-8px); }
-            81.8% { transform: scale(1) translateY(0); }
+        .splash-brand-text {
+            margin-top: 24px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 900;
+            color: #2C1E16;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: text-elegant-fade 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+            will-change: transform, opacity;
+            letter-spacing: -0.02em;
+        }
+        html.dark .splash-brand-text {
+            color: #D4A373;
+        }
+
+        @keyframes logo-elegant-fade {
+            0% { opacity: 0; transform: scale(0.85) translateY(10px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        @keyframes splash-glow-reveal {
-            0% { opacity: 0; }
-            50% { opacity: 1; }
-            100% { opacity: 1; }
+        @keyframes text-elegant-fade {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        body.splash-locked {
+            overflow: hidden !important;
+            height: 100vh !important;
         }
     </style>
 </head>
@@ -196,22 +204,20 @@
 
     <!-- === PREMIUM SPLASH SCREEN === -->
     <div id="premium-splash">
-        <div class="splash-logo-container">
-            <div class="splash-logo-glow"></div>
-            <img src="https://i.postimg.cc/vDZ1S2X8/logo.jpg" alt="Bunni Logo" class="splash-logo-img" draggable="false">
-        </div>
+        <img src="images/splash-logo.png" onerror="this.src='https://i.postimg.cc/vDZ1S2X8/logo.jpg'" alt="Bunni Logo" class="splash-logo-img" draggable="false">
+        <h1 class="splash-brand-text">بُنّي كافيه</h1>
     </div>
 
     <!-- === APP CONTENT WRAPPER === -->
-    <div id="app-content" class="opacity-0 translate-y-6 transition-all duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] pointer-events-none">
+    <div id="app-content" class="opacity-0 translate-y-8 transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none">
 
-        <!-- قاعدة البيانات المحدثة بالمسارات المحلية للصور المرفوعة -->
+        <!-- قاعدة البيانات مع الرموز الفاخرة للأقسام -->
         <script>
             const menuData = [
                 {
                     id: "espresso",
-                    title: "أسبريسو",
-                    icon: "fa-mug-hot",
+                    title: "القهوة الكلاسيكية",
+                    icon: "fa-solid fa-mug-hot",
                     defaultImage: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=600&q=80",
                     items: [
                         { name: "أمريكانو 🔥❄️", price: "3,500 د.ع", badge: "الاختيار الكلاسيكي", image: "images/americano.png.PNG", popular: true, description: "قهوة سوداء غنية، مستخلصة بعناية." },
@@ -231,7 +237,7 @@
                 {
                     id: "latte",
                     title: "لاتيه",
-                    icon: "fa-mug-saucer",
+                    icon: "fa-solid fa-mug-saucer",
                     defaultImage: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=600&q=80",
                     items: [
                         { name: "سبانش لاتيه 🔥❄️", price: "4,500 د.ع", badge: "الأكثر مبيعاً", image: "images/spanish-latte.png.PNG", popular: true },
@@ -245,20 +251,20 @@
                 {
                     id: "drip_coffee",
                     title: "القهوة المقطرة",
-                    icon: "fa-filter",
+                    icon: "fa-solid fa-filter",
                     defaultImage: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=600&q=80",
                     items: [
                         { name: "سايفون", price: "اسأل الباريستا", description: "تحضير فريد بطريقة الغمر الكامل.", image: "images/syphon.png.jpeg" },
                         { name: "V60", price: "اسأل الباريستا", description: "تقطير يدوي لنكهة نقية ومتوازنة.", image: "images/v60.png.jpeg" },
                         { name: "كولد برو", price: "اسأل الباريستا", description: "قهوة باردة مخمرة ببطء لنكهة غنية.", image: "images/cold-brew.png.jpeg" },
                         { name: "ايروبرس", price: "اسأل الباريستا", description: "قهوة غنية وسريعة التحضير.", image: "images/aeropress.png.jpeg" },
-                        { name: "كيمكس", price: "اسأل الباريستا", description: "تقطير بطيء لقهوة صافية وخفيفة.", image: "https://i.postimg.cc/7P9YTYP7/IMG-8864.jpg" }
+                        { name: "كيمكس", price: "اسأل الباريستا", description: "تقطير بطيء لقهوة صافية وخفيفة." }
                     ]
                 },
                 {
                     id: "add_ons",
                     title: "الإضافات",
-                    icon: "fa-plus",
+                    icon: "fa-solid fa-plus",
                     type: "list",
                     items: [
                         { name: "إضافة حجم كبير", price: "+ 1,000 د.ع" },
@@ -271,7 +277,7 @@
                 {
                     id: "ice_tea",
                     title: "آيس تي",
-                    icon: "fa-glass-water",
+                    icon: "fa-solid fa-glass-water",
                     defaultImage: "https://images.unsplash.com/photo-1499961142813-edce3e550c62?auto=format&fit=crop&w=600&q=80",
                     items: [
                         { name: "آيس تي مكس بيري", price: "4,000 د.ع", badge: "منعش جداً", popular: true, image: "images/mixed-berry-iced-tea.png.PNG" },
@@ -282,7 +288,7 @@
                 {
                     id: "spark",
                     title: "سبارك",
-                    icon: "fa-bolt",
+                    icon: "fa-solid fa-wand-magic-sparkles",
                     defaultImage: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80",
                     items: [
                         { name: "ليمون سبارك", price: "4,000 د.ع", image: "images/lemon-spark.png.PNG" },
@@ -293,7 +299,7 @@
                 {
                     id: "smoothie",
                     title: "سموذي",
-                    icon: "fa-blender",
+                    icon: "fa-solid fa-glass-water-droplet",
                     defaultImage: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80",
                     items: [
                         { name: "سموذي ستروبري بنانا", price: "5,000 د.ع", image: "images/strawberry-banana-smoothie.png.PNG" },
@@ -304,7 +310,7 @@
                 {
                     id: "milkshake",
                     title: "ميلك شيك",
-                    icon: "fa-ice-cream",
+                    icon: "fa-solid fa-ice-cream",
                     defaultImage: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=80",
                     items: [
                         { name: "ميلك شيك دارك چوكلت", price: "5,000 د.ع", image: "images/dark-chocolate-milkshake.png.png" },
@@ -318,19 +324,18 @@
                 {
                     id: "frappuccino",
                     title: "فرابيتشينو",
-                    icon: "fa-mug-hot",
+                    icon: "fa-solid fa-snowflake",
                     defaultImage: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=600&q=80",
                     items: [
                         { name: "جوكليت فراب", price: "5,000 د.ع", image: "images/chocolate-frappe.png.png" },
                         { name: "لوتس فراب", price: "5,000 د.ع", image: "images/lotus-frappe.png.png" },
-                        { name: "بستاشيو فراب", price: "5,000 د.ع", image: "images/pistachio-frappe.png.PNG" },
-                        { name: "كراميل فراب", price: "5,000 د.ع", image: "https://i.postimg.cc/Qdh1bzgW/IMG-8835.png" }
+                        { name: "بستاشيو فراب", price: "5,000 د.ع", image: "images/pistachio-frappe.png.PNG" }
                     ]
                 },
                 {
                     id: "matcha_sip",
                     title: "ماتشا سيب",
-                    icon: "fa-leaf",
+                    icon: "fa-solid fa-leaf",
                     defaultImage: "https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?auto=format&fit=crop&w=600&q=80",
                     items: [
                         { name: "ريد ماتشا", price: "5,000 د.ع", image: "images/red-matcha.png.png" },
@@ -341,7 +346,7 @@
                 {
                     id: "desserts",
                     title: "الحلويات والمخبوزات",
-                    icon: "fa-cake-candles",
+                    icon: "fa-solid fa-cookie-bite",
                     defaultImage: "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=600&q=80",
                     items: [
                         { name: "سان سباستيان", price: "4,000 د.ع", badge: "تذوب بالفم", image: "images/san-sebastian.png.png", popular: true },
@@ -358,7 +363,7 @@
                 {
                     id: "diet",
                     title: "دايت وفيتنس",
-                    icon: "fa-dumbbell",
+                    icon: "fa-solid fa-heart-pulse",
                     defaultImage: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=600&q=80",
                     items: [
                         { name: "بروتين سموذي", price: "6,000 د.ع", description: "24g Protein | 200 Calories", badge: "الأكثر طلباً 🔥", popular: true, image: "images/protein-smoothie.png.png" },
@@ -372,7 +377,7 @@
                 {
                     id: "cat_room",
                     title: "غرفة القطط",
-                    icon: "fa-cat",
+                    icon: "fa-solid fa-cat",
                     defaultImage: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=600&q=80",
                     items: [
                         { name: "تذكرة دخول الغرفة", price: "2,000 د.ع", description: "تذكرة دخول لشخص واحد." },
@@ -390,7 +395,7 @@
                 {
                     id: "study_room",
                     title: "غرفة الدراسة",
-                    icon: "fa-laptop-code",
+                    icon: "fa-solid fa-book-open-reader",
                     defaultImage: "https://images.unsplash.com/photo-1497032205947-228ae57ed55b?auto=format&fit=crop&w=600&q=80",
                     items: []
                 }
@@ -419,7 +424,7 @@
             <div class="relative z-10 w-full max-w-2xl mx-auto px-6 text-center">
                 
                 <div class="w-28 h-28 mx-auto mb-4 bg-transparent rounded-full flex items-center justify-center shadow-lg border-0 outline-none ring-0 overflow-hidden select-none pointer-events-none">
-                    <img src="https://i.postimg.cc/vDZ1S2X8/logo.jpg" alt="" class="w-full h-full object-cover transform scale-[1.60] select-none pointer-events-none" draggable="false">
+                    <img src="images/splash-logo.png" onerror="this.src='https://i.postimg.cc/vDZ1S2X8/logo.jpg'" alt="" class="w-full h-full object-cover transform scale-[1.60] select-none pointer-events-none" draggable="false">
                 </div>
                 
                 <h1 class="font-display text-[2.2rem] leading-tight font-black text-bunni-espresso dark:text-white mb-2 tracking-normal">بُنّي كافيه</h1>
@@ -436,10 +441,10 @@
             </div>
         </header>
 
-        <!-- شريط التصنيفات اللاصق -->
+        <!-- شريط التصنيفات اللاصق مع الأيقونات الفاخرة المدمجة -->
         <nav class="sticky top-0 z-40 glass-header mt-0 pt-4 pb-3 transition-colors">
             <div class="w-full max-w-4xl mx-auto overflow-hidden">
-                <ul id="categoryTabs" class="flex overflow-x-auto hide-scrollbar gap-2.5 px-4 items-center w-full">
+                <ul id="categoryTabs" class="flex overflow-x-auto hide-scrollbar gap-3 px-4 items-center w-full">
                 </ul>
             </div>
         </nav>
@@ -460,7 +465,7 @@
             <div id="menuContainer" class="space-y-10 pb-6 px-4 w-full">
             </div>
             
-            <!-- قسم غرفة الدراسة الاحترافي والتسويقي -->
+            <!-- قسم غرفة الدراسة الاحترافي -->
             <section id="section-study_room" class="menu-category w-full px-4 mb-10">
                 <div class="flex items-center mb-5">
                     <h2 class="text-2xl font-display font-black text-bunni-espresso dark:text-white tracking-tight">
@@ -605,10 +610,15 @@
 
         </main>
 
-        <a href="https://wa.me/9647819423456" target="_blank" class="fixed bottom-6 left-4 z-50 w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg transition-transform active:scale-90 hover:bg-green-600">
-            <i class="fa-brands fa-whatsapp text-3xl"></i>
-            <span class="absolute top-0 right-0 w-3.5 h-3.5 bg-red-500 border-2 border-white rounded-full animate-ping"></span>
-            <span class="absolute top-0 right-0 w-3.5 h-3.5 bg-red-500 border-2 border-white rounded-full"></span>
+        <!-- زر الواتساب الفاخر والممتد (للطلب والتوصيل) -->
+        <a href="https://wa.me/9647819423456" target="_blank" class="fixed bottom-6 left-5 z-50 flex items-center gap-3 bg-gradient-to-r from-[#25D366] to-[#128C7E] text-white py-3.5 px-6 rounded-full shadow-float transition-all active:scale-95 hover:shadow-lg group border-2 border-white dark:border-bunni-darkCard">
+            <i class="fa-brands fa-whatsapp text-[1.4rem] group-hover:scale-110 transition-transform"></i>
+            <span class="font-bold text-[14px] pb-0.5 tracking-wide">للطلب ديليفري</span>
+            <!-- النبض الأحمر لجذب الانتباه -->
+            <span class="absolute -top-1.5 -right-1.5 flex h-4 w-4">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-4 w-4 bg-red-500 border-2 border-white dark:border-bunni-darkCard"></span>
+            </span>
         </a>
 
     </div>
@@ -622,29 +632,33 @@
             if (sessionStorage.getItem('bunni_splash_played')) {
                 if (splashScreen) splashScreen.remove();
                 if (appContent) {
-                    appContent.classList.remove('opacity-0', 'translate-y-6');
+                    appContent.classList.remove('opacity-0', 'translate-y-8');
                     appContent.classList.remove('pointer-events-none');
                 }
+                document.body.classList.remove('splash-locked');
             } else {
-                document.body.style.overflow = 'hidden';
+                document.body.classList.add('splash-locked');
 
                 setTimeout(() => {
-                    if (splashScreen) splashScreen.style.opacity = '0';
+                    if (splashScreen) {
+                        splashScreen.style.opacity = '0';
+                        splashScreen.style.transform = 'translateY(-10px)';
+                    }
                     
                     setTimeout(() => {
                         if (appContent) {
-                            appContent.classList.remove('opacity-0', 'translate-y-6');
+                            appContent.classList.remove('opacity-0', 'translate-y-8');
                             appContent.classList.remove('pointer-events-none');
                         }
-                    }, 400);
+                    }, 300);
 
                     setTimeout(() => {
                         if (splashScreen) splashScreen.remove();
-                        document.body.style.overflow = '';
+                        document.body.classList.remove('splash-locked');
                         sessionStorage.setItem('bunni_splash_played', 'true');
-                    }, 600);
+                    }, 800);
 
-                }, 2200);
+                }, 2800);
             }
         });
 
@@ -692,7 +706,7 @@
                                     <i class="fa-solid fa-star text-[8px] ml-1"></i> ننصح به
                                 </div>
                                 <div class="h-32 w-full rounded-2xl overflow-hidden mb-3 bg-bunni-surface dark:bg-bunni-darkSurface pointer-events-none select-none">
-                                    <img src="${itemImg}" alt="" loading="lazy" class="w-full h-full object-cover" draggable="false">
+                                    <img src="${itemImg}" alt="" loading="lazy" class="w-full h-full object-cover" draggable="false" onerror="this.src='https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=600&q=80'">
                                 </div>
                                 <h3 class="font-bold text-bunni-espresso dark:text-white text-base line-clamp-1">${item.name}</h3>
                                 <div class="flex items-center justify-between mt-2">
@@ -713,21 +727,26 @@
             }
         }
 
+        // دالة إنشاء أزرار الأقسام مع الأيقونات الفاخرة المحدثة بالغرفة الدراسية
         function renderNav() {
             const tabsContainer = document.getElementById('categoryTabs');
             if(!tabsContainer) return;
             let tabsHTML = '';
             
             menuData.forEach((cat, index) => {
-                if(cat.id === 'add_ons' || cat.id === 'study_room') return;
+                // إزالة الإضافات فقط من الشريط العلوي وإبقاء غرفة الدراسة
+                if(cat.id === 'add_ons') return;
 
                 const isActive = index === 0 ? 'active' : '';
                 tabsHTML += `
                     <li>
                         <button onclick="scrollToSection('${cat.id}')" 
-                           class="nav-pill ${isActive} block px-5 py-2 rounded-full border border-bunni-gold/30 bg-white dark:bg-bunni-darkCard text-sm font-bold text-bunni-mocha dark:text-white shadow-sm transition-colors" 
+                           class="nav-pill ${isActive} flex items-center gap-2 px-4 py-2 rounded-full border border-bunni-gold/30 bg-white dark:bg-bunni-darkCard text-sm font-bold text-bunni-mocha dark:text-white shadow-sm transition-all hover:border-bunni-gold group" 
                            data-target="${cat.id}">
-                            <i class="${cat.icon} ml-1 opacity-80 text-bunni-gold"></i> ${cat.title}
+                            <div class="nav-icon-box w-7 h-7 rounded-full bg-bunni-surface dark:bg-bunni-darkSurface flex items-center justify-center text-bunni-gold transition-colors duration-300 group-hover:bg-bunni-gold group-hover:text-white">
+                                <i class="${cat.icon} text-[12px]"></i>
+                            </div>
+                            <span class="ml-1">${cat.title}</span>
                         </button>
                     </li>
                 `;
@@ -813,7 +832,7 @@
                             </div>
                             
                             <div class="w-24 h-24 shrink-0 rounded-[16px] overflow-hidden bg-bunni-surface dark:bg-bunni-darkSurface relative shadow-inner pointer-events-none select-none">
-                                <img src="${itemImg}" alt="" loading="lazy" class="w-full h-full object-cover" draggable="false">
+                                <img src="${itemImg}" alt="" loading="lazy" class="w-full h-full object-cover" draggable="false" onerror="this.src='https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=600&q=80'">
                                 <div class="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent"></div>
                             </div>
                         </div>
