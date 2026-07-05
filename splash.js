@@ -1,4 +1,4 @@
-```js
+
 (function() {
     const splash = document.getElementById('splash-screen');
     const appContent = document.getElementById('app-content');
