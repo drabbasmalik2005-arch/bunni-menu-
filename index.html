@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
@@ -6,8 +8,8 @@
     <meta name="theme-color" content="#FDFBF7" id="theme-color-meta">
     <title>بنّي كافيه | Bunni Menu</title>
     
-    <!-- Preload Logo for Splash Screen Animation -->
-    <link rel="preload" href="./images/splash-logo.png.jpg" as="image">
+    <!-- تم تصحيح مسار صورة اللوجو هنا -->
+    <link rel="preload" href="./images/splash-logo.png" as="image">
     
     <!-- خطوط عربية فاخرة -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -203,15 +205,15 @@
 
     <!-- === PREMIUM SPLASH SCREEN === -->
     <div id="premium-splash">
-        <!-- Exact match with your splash-logo.png.jpg filename in GitHub -->
-        <img src="./images/splash-logo.png.jpg" onerror="this.src='https://i.postimg.cc/vDZ1S2X8/logo.jpg'" alt="Bunni Logo" class="splash-logo-img" draggable="false">
+        <!-- تم تصحيح مسار اللوجو -->
+        <img src="./images/splash-logo.png" onerror="this.src='https://i.postimg.cc/vDZ1S2X8/logo.jpg'" alt="Bunni Logo" class="splash-logo-img" draggable="false">
         <h1 class="splash-brand-text">بُنّي كافيه</h1>
     </div>
 
     <!-- === APP CONTENT WRAPPER === -->
     <div id="app-content" class="opacity-0 translate-y-8 transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none">
 
-        <!-- قاعدة البيانات مع المسارات المطابقة لصورك المرفوعة حديثاً 100% -->
+        <!-- قاعدة البيانات مع المسارات المصححة بدقة تامة -->
         <script>
             const menuData = [
                 {
@@ -220,18 +222,18 @@
                     icon: "fa-solid fa-mug-hot",
                     defaultImage: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "أمريكانو 🔥❄️", price: "3,500 د.ع", badge: "الاختيار الكلاسيكي", image: "./images/americano.png.PNG", popular: true, description: "قهوة سوداء غنية، مستخلصة بعناية." },
-                        { name: "كابوتشينو 🔥", price: "4,000 د.ع", image: "./images/cappuccino.png.PNG", popular: true, description: "رغوة حليب كثيفة مع الإسبريسو." },
-                        { name: "فلات وايت 🔥", price: "4,000 د.ع", image: "./images/flat-white.png.PNG" },
-                        { name: "موكا 🔥❄️", price: "4,500 د.ع", image: "./images/mocha.png.PNG" },
-                        { name: "دبل أسبريسو 🔥", price: "3,000 د.ع", image: "./images/double-espresso.png.PNG" },
-                        { name: "ماكياتو 🔥", price: "3,000 د.ع", image: "./images/macchiato.png.PNG" },
-                        { name: "لونكو 🔥", price: "3,000 د.ع", image: "./images/lungo.png.PNG" },
-                        { name: "بيكولو 🔥", price: "3,500 د.ع", image: "./images/piccolo.png.PNG" },
-                        { name: "كورتادو 🔥", price: "3,500 د.ع", image: "./images/cortado.png.PNG" },
-                        { name: "كراميل مكياتو 🔥❄️", price: "4,500 د.ع", image: "./images/caramel-macchiato.png.PNG" },
-                        { name: "أفكاتو 🔥", price: "3,500 د.ع", image: "./images/affogato.png.PNG" },
-                        { name: "قهوة تركية 🔥", price: "2,500 د.ع", image: "./images/turkish-coffee.png.PNG" }
+                        { name: "أمريكانو 🔥❄️", price: "3,500 د.ع", badge: "الاختيار الكلاسيكي", image: "./images/americano.PNG", popular: true, description: "قهوة سوداء غنية، مستخلصة بعناية." },
+                        { name: "كابوتشينو 🔥", price: "4,000 د.ع", image: "./images/cappuccino.png", popular: true, description: "رغوة حليب كثيفة مع الإسبريسو." },
+                        { name: "فلات وايت 🔥", price: "4,000 د.ع", image: "./images/flat-white.png" },
+                        { name: "موكا 🔥❄️", price: "4,500 د.ع", image: "./images/mocha.png" },
+                        { name: "دبل أسبريسو 🔥", price: "3,000 د.ع", image: "./images/double-espresso.png" },
+                        { name: "ماكياتو 🔥", price: "3,000 د.ع", image: "./images/macchiato.png" },
+                        { name: "لونكو 🔥", price: "3,000 د.ع", image: "./images/lungo.png" },
+                        { name: "بيكولو 🔥", price: "3,500 د.ع", image: "./images/piccolo.png" },
+                        { name: "كورتادو 🔥", price: "3,500 د.ع", image: "./images/cortado.png" },
+                        { name: "كراميل مكياتو 🔥❄️", price: "4,500 د.ع", image: "./images/caramel-macchiato.png" },
+                        { name: "أفكاتو 🔥", price: "3,500 د.ع", image: "./images/affogato.png" },
+                        { name: "قهوة تركية 🔥", price: "2,500 د.ع", image: "./images/turkish-coffee.png" }
                     ]
                 },
                 {
@@ -240,12 +242,12 @@
                     icon: "fa-solid fa-mug-saucer",
                     defaultImage: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "سبانش لاتيه 🔥❄️", price: "4,500 د.ع", badge: "الأكثر مبيعاً", image: "./images/spanish-latte.png.PNG", popular: true },
-                        { name: "بستاشيو لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/pistachio-latte.png.PNG", popular: true },
-                        { name: "فانيلا لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/vanilla-latte.png.PNG" },
-                        { name: "بندق لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/hazelnut-latte.png.PNG" },
-                        { name: "لوتس لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/lotus-latte.png.PNG" },
-                        { name: "هلو كيتي لاتيه 🔥❄️", price: "4,500 د.ع", badge: "جديد", image: "./images/hello-kitty-latte.png.PNG" }
+                        { name: "سبانش لاتيه 🔥❄️", price: "4,500 د.ع", badge: "الأكثر مبيعاً", image: "./images/spanish-latte.png", popular: true },
+                        { name: "بستاشيو لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/pistachio-latte.png", popular: true },
+                        { name: "فانيلا لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/vanilla-latte.png" },
+                        { name: "بندق لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/hazelnut-latte.png" },
+                        { name: "لوتس لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/lotus-latte.png" },
+                        { name: "هلو كيتي لاتيه 🔥❄️", price: "4,500 د.ع", badge: "جديد", image: "./images/hello-kitty-latte.png" }
                     ]
                 },
                 {
@@ -254,11 +256,11 @@
                     icon: "fa-solid fa-filter",
                     defaultImage: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "سايفون", price: "اسأل الباريستا", description: "تحضير فريد بطريقة الغمر الكامل.", image: "./images/syphon.png.jpeg" },
-                        { name: "V60", price: "اسأل الباريستا", description: "تقطير يدوي لنكهة نقية ومتوازنة.", image: "./images/v60.png.jpeg" },
-                        { name: "كولد برو", price: "اسأل الباريستا", description: "قهوة باردة مخمرة ببطء لنكهة غنية.", image: "./images/cold-brew.png.jpeg" },
-                        { name: "ايروبرس", price: "اسأل الباريستا", description: "قهوة غنية وسريعة التحضير.", image: "./images/aeropress.png.jpeg" },
-                        { name: "كيمكس", price: "اسأل الباريستا", description: "تقطير بطيء لقهوة صافية وخفيفة.", image: "./images/chemex.png.JPG" }
+                        { name: "سايفون", price: "اسأل الباريستا", description: "تحضير فريد بطريقة الغمر الكامل.", image: "./images/syphon.png" },
+                        { name: "V60", price: "اسأل الباريستا", description: "تقطير يدوي لنكهة نقية ومتوازنة.", image: "./images/v60.png" },
+                        { name: "كولد برو", price: "اسأل الباريستا", description: "قهوة باردة مخمرة ببطء لنكهة غنية.", image: "./images/cold-brew.png" },
+                        { name: "ايروبرس", price: "اسأل الباريستا", description: "قهوة غنية وسريعة التحضير.", image: "./images/aeropress.png" },
+                        { name: "كيمكس", price: "اسأل الباريستا", description: "تقطير بطيء لقهوة صافية وخفيفة.", image: "./images/chemex.png" }
                     ]
                 },
                 {
@@ -280,9 +282,9 @@
                     icon: "fa-solid fa-glass-water",
                     defaultImage: "https://images.unsplash.com/photo-1499961142813-edce3e550c62?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "آيس تي مكس بيري", price: "4,000 د.ع", badge: "منعش جداً", popular: true, image: "./images/mixed-berry-iced-tea.png.PNG" },
-                        { name: "آيس تي ستروبري", price: "4,000 د.ع", image: "./images/strawberry-iced-tea.png.PNG" },
-                        { name: "آيس تي ليمون بيج", price: "4,000 د.ع", image: "./images/lemon-iced-tea.png.PNG" }
+                        { name: "آيس تي مكس بيري", price: "4,000 د.ع", badge: "منعش جداً", popular: true, image: "./images/mixed-berry-iced-tea.png" },
+                        { name: "آيس تي ستروبري", price: "4,000 د.ع", image: "./images/strawberry-iced-tea.png" },
+                        { name: "آيس تي ليمون بيج", price: "4,000 د.ع", image: "./images/lemon-iced-tea.png" }
                     ]
                 },
                 {
@@ -291,9 +293,9 @@
                     icon: "fa-solid fa-wand-magic-sparkles",
                     defaultImage: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "ليمون سبارك", price: "4,000 د.ع", image: "./images/lemon-spark.png.PNG" },
-                        { name: "ستروبري سبارك", price: "4,000 د.ع", image: "./images/strawberry-spark.png.PNG" },
-                        { name: "بلو گم سبارك", price: "4,000 د.ع", image: "./images/blue-cum-spark.png.JPG" }
+                        { name: "ليمون سبارك", price: "4,000 د.ع", image: "./images/lemon-spark.png" },
+                        { name: "ستروبري سبارك", price: "4,000 د.ع", image: "./images/strawberry-spark.png" },
+                        { name: "بلو گم سبارك", price: "4,000 د.ع", image: "./images/blue-cum-spark.png" }
                     ]
                 },
                 {
@@ -302,9 +304,9 @@
                     icon: "fa-solid fa-glass-water-droplet",
                     defaultImage: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "سموذي ستروبري بنانا", price: "5,000 د.ع", image: "./images/strawberry-banana-smoothie.png.PNG" },
-                        { name: "سموذي خوخ", price: "5,000 د.ع", image: "./images/peach-smoothie.png.PNG" },
-                        { name: "سموذي مانكو باشن", price: "5,000 د.ع", image: "./images/mango-passion-smoothie.png.PNG" }
+                        { name: "سموذي ستروبري بنانا", price: "5,000 د.ع", image: "./images/strawberry-banana-smoothie.png" },
+                        { name: "سموذي خوخ", price: "5,000 د.ع", image: "./images/peach-smoothie.png" },
+                        { name: "سموذي مانكو باشن", price: "5,000 د.ع", image: "./images/mango-passion-smoothie.png" }
                     ]
                 },
                 {
@@ -313,12 +315,12 @@
                     icon: "fa-solid fa-ice-cream",
                     defaultImage: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "ميلك شيك دارك چوكلت", price: "5,000 د.ع", image: "./images/dark-chocolate-milkshake.png.png" },
-                        { name: "ميلك شيك بستاشيو", price: "5,000 د.ع", image: "./images/pistachio-milkshake.png.png" },
-                        { name: "أوريو ميلك شيك", price: "5,000 د.ع", image: "./images/oreo-milkshake.png.png" },
-                        { name: "ستروبري ميلك شيك", price: "5,000 د.ع", image: "./images/strawberry-milkshake.png.png" },
-                        { name: "لوتس ميلك شيك", price: "5,000 د.ع", image: "./images/lotus-milkshake.png.png" },
-                        { name: "دوقا ميلك شيك", price: "5,000 د.ع", badge: "جديد", image: "./images/duga-milkshake.png.png" }
+                        { name: "ميلك شيك دارك چوكلت", price: "5,000 د.ع", image: "./images/dark-chocolate-milkshake.png" },
+                        { name: "ميلك شيك بستاشيو", price: "5,000 د.ع", image: "./images/pistachio-milkshake.png" },
+                        { name: "أوريو ميلك شيك", price: "5,000 د.ع", image: "./images/oreo-milkshake.png" },
+                        { name: "ستروبري ميلك شيك", price: "5,000 د.ع", image: "./images/strawberry-milkshake.png" },
+                        { name: "لوتس ميلك شيك", price: "5,000 د.ع", image: "./images/lotus-milkshake.png" },
+                        { name: "دوقا ميلك شيك", price: "5,000 د.ع", badge: "جديد", image: "./images/duga-milkshake.png" }
                     ]
                 },
                 {
@@ -327,10 +329,10 @@
                     icon: "fa-solid fa-snowflake",
                     defaultImage: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "جوكليت فراب", price: "5,000 د.ع", image: "./images/chocolate-frappe.png.png" },
-                        { name: "لوتس فراب", price: "5,000 د.ع", image: "./images/lotus-frappe.png.png" },
-                        { name: "بستاشيو فراب", price: "5,000 د.ع", image: "./images/pistachio-frappe.png.PNG" },
-                        { name: "كراميل فراب", price: "5,000 د.ع", image: "./images/caramel-frappe.png.PNG" }
+                        { name: "جوكليت فراب", price: "5,000 د.ع", image: "./images/chocolate-frappe.png" },
+                        { name: "لوتس فراب", price: "5,000 د.ع", image: "./images/lotus-frappe.png" },
+                        { name: "بستاشيو فراب", price: "5,000 د.ع", image: "./images/pistachio-frappe.png" },
+                        { name: "كراميل فراب", price: "5,000 د.ع", image: "./images/caramel-frappe.png" }
                     ]
                 },
                 {
@@ -339,9 +341,9 @@
                     icon: "fa-solid fa-leaf",
                     defaultImage: "https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "ريد ماتشا", price: "5,000 د.ع", image: "./images/red-matcha.png.png" },
-                        { name: "بلو ماتشا", price: "5,000 د.ع", image: "./images/blue-matcha.png.png" },
-                        { name: "بربل ماتشا", price: "5,000 د.ع", image: "./images/purple-matcha.png.png" }
+                        { name: "ريد ماتشا", price: "5,000 د.ع", image: "./images/red-matcha.png" },
+                        { name: "بلو ماتشا", price: "5,000 د.ع", image: "./images/blue-matcha.png" },
+                        { name: "بربل ماتشا", price: "5,000 د.ع", image: "./images/purple-matcha.png" }
                     ]
                 },
                 {
@@ -350,15 +352,15 @@
                     icon: "fa-solid fa-cookie-bite",
                     defaultImage: "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "سان سباستيان", price: "4,000 د.ع", badge: "تذوب بالفم", image: "./images/san-sebastian.png.png", popular: true },
-                        { name: "سينامون رول", price: "4,000 د.ع", image: "./images/cinnamon-roll.png.png" },
-                        { name: "براونيز", price: "4,000 د.ع", image: "./images/brownies.png.png" },
-                        { name: "دونات سادة", price: "2,500 د.ع", image: "./images/plain-donut.png.png" },
-                        { name: "دونات محشية", price: "3,500 د.ع", description: "لوتس - جوكلت - بستاشيو", image: "./images/stuffed-donut.png.png" },
-                        { name: "فطيرة لحم", price: "2,000 د.ع", image: "./images/meat-pie.png.png" },
-                        { name: "فطيرة جبن", price: "2,500 د.ع", image: "./images/cheese-pie.png.png" },
-                        { name: "كرة لوتس قطعة واحدة", price: "750 د.ع", image: "./images/lotus-ball-single.png.PNG" },
-                        { name: "كرة لوتس ثلاث قطع", price: "2,000 د.ع", image: "./images/lotus-ball-three.png.PNG" }
+                        { name: "سان سباستيان", price: "4,000 د.ع", badge: "تذوب بالفم", image: "./images/san-sebastian.png", popular: true },
+                        { name: "سينامون رول", price: "4,000 د.ع", image: "./images/cinnamon-roll.png" },
+                        { name: "براونيز", price: "4,000 د.ع", image: "./images/brownies.png" },
+                        { name: "دونات سادة", price: "2,500 د.ع", image: "./images/plain-donut.png" },
+                        { name: "دونات محشية", price: "3,500 د.ع", description: "لوتس - جوكلت - بستاشيو", image: "./images/stuffed-donut.png" },
+                        { name: "فطيرة لحم", price: "2,000 د.ع", image: "./images/meat-pie.png" },
+                        { name: "فطيرة جبن", price: "2,500 د.ع", image: "./images/cheese-pie.png" },
+                        { name: "كرة لوتس قطعة واحدة", price: "750 د.ع", image: "./images/lotus-ball-single.png" },
+                        { name: "كرة لوتس ثلاث قطع", price: "2,000 د.ع", image: "./images/lotus-ball-three.png" }
                     ]
                 },
                 {
@@ -367,12 +369,12 @@
                     icon: "fa-solid fa-heart-pulse",
                     defaultImage: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "بروتين سموذي", price: "6,000 د.ع", description: "24g Protein | 200 Calories", badge: "الأكثر طلباً 🔥", popular: true, image: "./images/protein-smoothie.png.png" },
-                        { name: "برتقال فريش", price: "4,000 د.ع", image: "./images/fresh-orange-juice.png.png" },
-                        { name: "ليمونادة", price: "4,000 د.ع", image: "./images/lemonade.png.png" },
-                        { name: "لاتيه فانيلا خالي السكر 🔥❄️", price: "5,000 د.ع", image: "./images/vanilla-sugar-free-latte.png.png" },
-                        { name: "لاتيه بندق خالي السكر 🔥❄️", price: "5,000 د.ع", image: "./images/hazelnut-sugar-free-latte.png.png" },
-                        { name: "لاتيه كراميل خالي السكر 🔥❄️", price: "5,000 د.ع", image: "./images/caramel-sugar-free-latte.png.png" }
+                        { name: "بروتين سموذي", price: "6,000 د.ع", description: "24g Protein | 200 Calories", badge: "الأكثر طلباً 🔥", popular: true, image: "./images/protein-smoothie.png" },
+                        { name: "برتقال فريش", price: "4,000 د.ع", image: "./images/fresh-orange-juice.png" },
+                        { name: "ليمونادة", price: "4,000 د.ع", image: "./images/lemonade.png" },
+                        { name: "لاتيه فانيلا خالي السكر 🔥❄️", price: "5,000 د.ع", image: "./images/vanilla-sugar-free-latte.png" },
+                        { name: "لاتيه بندق خالي السكر 🔥❄️", price: "5,000 د.ع", image: "./images/hazelnut-sugar-free-latte.png" },
+                        { name: "لاتيه كراميل خالي السكر 🔥❄️", price: "5,000 د.ع", image: "./images/caramel-sugar-free-latte.png" }
                     ]
                 },
                 {
@@ -425,7 +427,8 @@
             <div class="relative z-10 w-full max-w-2xl mx-auto px-6 text-center">
                 
                 <div class="w-28 h-28 mx-auto mb-4 bg-transparent rounded-full flex items-center justify-center shadow-lg border-0 outline-none ring-0 overflow-hidden select-none pointer-events-none">
-                    <img src="./images/splash-logo.png.jpg" onerror="this.src='https://i.postimg.cc/vDZ1S2X8/logo.jpg'" alt="" class="w-full h-full object-cover transform scale-[1.60] select-none pointer-events-none" draggable="false">
+                    <!-- تم تصحيح مسار اللوجو -->
+                    <img src="./images/splash-logo.png" onerror="this.src='https://i.postimg.cc/vDZ1S2X8/logo.jpg'" alt="" class="w-full h-full object-cover transform scale-[1.60] select-none pointer-events-none" draggable="false">
                 </div>
                 
                 <h1 class="font-display text-[2.2rem] leading-tight font-black text-bunni-espresso dark:text-white mb-2 tracking-normal">بُنّي كافيه</h1>
@@ -958,3 +961,4 @@
 </html>
 
 ```
+
