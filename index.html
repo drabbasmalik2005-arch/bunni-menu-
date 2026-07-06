@@ -1,7 +1,5 @@
 
 
-
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
@@ -14,7 +12,7 @@
     <link rel="preload" href="./images/hero.webp" as="image">
     <link rel="preload" href="./images/splash-logo6.WEBP" as="image">
     
-    <!-- خطوط عربية فاخرة (تم استخدام خط "المسيري" الفاخر جداً للعناوين) -->
+    <!-- خطوط عربية فاخرة (تم استخدام خط "المسيري" الفاخر وتعميمه) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -30,8 +28,8 @@
             theme: {
                 extend: {
                     fontFamily: { 
-                        sans: ['Tajawal', 'sans-serif'],
-                        display: ['"El Messiri"', 'sans-serif'] /* الخط الفاخر الجديد */
+                        sans: ['Tajawal', 'sans-serif'], /* للفقرات والنصوص الصغيرة جداً */
+                        display: ['"El Messiri"', 'sans-serif'] /* الخط الفاخر للأسماء والعناوين والأسعار */
                     },
                     colors: {
                         bunni: {
@@ -186,22 +184,21 @@
             will-change: transform, filter;
         }
 
-        /* تم ضبط المسافات والأبعاد للوغو في شاشة البداية لمنع التداخل */
+        /* --- حل مشكلة شاشة البداية (القناع الدائري) --- */
         .splash-logo-container {
             position: relative;
-            width: 140px; 
-            height: 140px;
-            margin-bottom: 35px; /* زيادة المساحة السفلية */
+            width: 150px; 
+            height: 150px;
+            margin-bottom: 30px; 
         }
 
         .splash-brand-logo {
             width: 100%;
             height: 100%;
-            object-fit: contain; 
-            background-color: transparent; 
-            border-radius: 0;
-            box-shadow: none;
-            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5)); /* ظل أخف */
+            object-fit: cover; /* يملأ الدائرة تماماً */
+            border-radius: 50%; /* يقص الصورة المربعة لتصبح دائرة مثالية */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6); /* ظل فاخر يعطي عمقاً */
+            background-color: #FDFBF7; /* خلفية احتياطية */
             
             opacity: 0;
             transform: scale(0.85) translateY(25px);
@@ -213,16 +210,16 @@
 
         .splash-glow {
             position: absolute;
-            inset: 20%;
+            inset: 5%;
             border-radius: 50%;
-            box-shadow: 0 0 80px 40px rgba(212, 163, 115, 0.25);
+            box-shadow: 0 0 80px 40px rgba(212, 163, 115, 0.3);
             opacity: 0;
             animation: luxury-glow-pulse 3.5s ease-in-out 1.5s infinite alternate;
             z-index: 1;
         }
 
         .splash-title {
-            font-family: 'El Messiri', sans-serif; /* الخط الجديد */
+            font-family: 'El Messiri', sans-serif; 
             font-size: 2.6rem;
             font-weight: 700;
             color: #FDFBF7;
@@ -339,7 +336,7 @@
         }
     </style>
 </head>
-<body class="antialiased pb-28 splash-locked">
+<body class="antialiased pb-28 splash-locked font-sans">
 
     <script>
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -352,14 +349,11 @@
 
     <!-- === 10/10 PREMIUM LUXURY SPLASH SCREEN === -->
     <div id="premium-splash">
-        
-        <!-- Cinematic Fullscreen Background -->
         <div class="splash-bg-wrapper">
             <img src="./images/hero.webp" alt="Background" class="splash-bg-img" draggable="false">
             <div class="splash-overlay"></div>
         </div>
 
-        <!-- Premium Content -->
         <div class="splash-content-wrapper">
             <div class="splash-logo-container">
                 <img src="./images/splash-logo6.WEBP" onerror="this.src='https://i.postimg.cc/vDZ1S2X8/logo.jpg'" alt="Bunni Logo" class="splash-brand-logo" draggable="false">
@@ -369,11 +363,9 @@
             <p class="splash-subtitle" dir="ltr">First Cat Café in Babylon</p>
         </div>
 
-        <!-- Elegant Loader -->
         <div class="splash-progress-container">
             <div class="splash-progress-bar"></div>
         </div>
-        
     </div>
 
     <!-- === APP CONTENT WRAPPER === -->
@@ -572,7 +564,7 @@
         </script>
 
         <!-- شريط الإعلانات العائم -->
-        <div class="bg-bunni-espresso dark:bg-bunni-gold text-bunni-gold dark:text-bunni-espresso text-xs py-2 px-4 text-center font-bold relative z-40 transition-colors">
+        <div class="bg-bunni-espresso dark:bg-bunni-gold text-bunni-gold dark:text-bunni-espresso text-xs py-2 px-4 text-center font-display font-bold relative z-40 transition-colors">
             <div class="marquee-container">
                 <div class="marquee-content flex gap-8">
                     <span><i class="fa-solid fa-star mx-1"></i> أول مقهى قطط في بابل</span>
@@ -592,12 +584,12 @@
         <header class="relative bg-bunni-surface dark:bg-bunni-darkSurface pt-10 pb-8 rounded-b-[40px] shadow-sm transition-colors">
             <div class="relative z-10 w-full max-w-2xl mx-auto px-6 text-center">
                 
-                <!-- تم حل المشكلة: تقليل الحجم قليلاً، ومضاعفة المسافة السفلية (mb-8) لمنع التداخل مع النص -->
-                <div class="w-36 h-36 mx-auto mb-8 relative flex items-center justify-center select-none pointer-events-none">
-                    <img src="./images/splash-logo6.WEBP" onerror="this.src='https://i.postimg.cc/vDZ1S2X8/logo.jpg'" alt="Bunni Logo" class="w-full h-full object-contain drop-shadow-lg" draggable="false">
+                <!-- --- حل مشكلة اللوغو في الترويسة (القناع الدائري) --- -->
+                <!-- حاوية دائرية صارمة، تقوم بقص الصورة المربعة البيضاء لتصبح دائرة مثالية -->
+                <div class="w-36 h-36 mx-auto mb-6 rounded-full shadow-xl border-4 border-white dark:border-bunni-darkBorder overflow-hidden flex items-center justify-center bg-[#FDFBF7]">
+                    <img src="./images/splash-logo6.WEBP" onerror="this.src='https://i.postimg.cc/vDZ1S2X8/logo.jpg'" alt="Bunni Logo" class="w-full h-full object-cover scale-[1.05]" draggable="false">
                 </div>
                 
-                <!-- استخدام خط المسيري الفاخر -->
                 <h1 class="font-display text-4xl leading-tight font-bold text-bunni-espresso dark:text-white mb-2 drop-shadow-sm">بُنّي كافيه</h1>
                 <p class="font-sans text-bunni-mocha/80 dark:text-bunni-gold/80 text-[11px] font-black tracking-[0.3em] uppercase mb-8">Bunni Cat & Coffee</p>
                 
@@ -606,13 +598,13 @@
                         <i class="fa-solid fa-search text-lg"></i>
                     </div>
                     <input type="text" id="searchInput" placeholder="ابحث عن مشروبك المفضل..." 
-                        class="w-full bg-transparent border-none outline-none text-bunni-espresso dark:text-white placeholder-bunni-latte dark:placeholder-gray-500 font-medium py-2 text-sm"
+                        class="font-display w-full bg-transparent border-none outline-none text-bunni-espresso dark:text-white placeholder-bunni-latte dark:placeholder-gray-500 font-bold py-2 text-sm"
                         onkeyup="searchMenu()">
                 </div>
             </div>
         </header>
 
-        <!-- شريط التصنيفات اللاصق مع الأيقونات الفاخرة المدمجة -->
+        <!-- شريط التصنيفات اللاصق -->
         <nav class="sticky top-0 z-40 glass-header mt-0 pt-4 pb-3 transition-colors">
             <div class="w-full max-w-4xl mx-auto overflow-hidden">
                 <ul id="categoryTabs" class="flex overflow-x-auto hide-scrollbar gap-3 px-4 items-center w-full">
@@ -649,13 +641,13 @@
                     <i class="fa-solid fa-graduation-cap absolute -left-6 -bottom-6 text-8xl text-bunni-gold/10 rotate-[-15deg]"></i>
                     
                     <div class="relative z-10">
-                        <h4 class="font-bold text-bunni-espresso dark:text-white mb-4 flex items-center text-lg">
+                        <h4 class="font-display font-bold text-bunni-espresso dark:text-white mb-4 flex items-center text-lg">
                             <i class="fa-solid fa-book-open-reader text-bunni-accent ml-2"></i> بيئة مثالية للتركيز والإنجاز
                         </h4>
-                        <p class="text-sm text-bunni-mocha dark:text-gray-300 leading-relaxed font-medium mb-6">
+                        <p class="text-sm font-sans text-bunni-mocha dark:text-gray-300 leading-relaxed font-medium mb-6">
                             غرفة مغلقة خاصة للدراسة والعمل مجهزة لمساعدتك بالآتي:
                         </p>
-                        <div class="grid grid-cols-1 gap-y-3 text-[13px] font-medium text-bunni-mocha dark:text-gray-300">
+                        <div class="grid grid-cols-1 gap-y-3 text-[13px] font-sans font-medium text-bunni-mocha dark:text-gray-300">
                             <div class="flex items-center bg-white/60 dark:bg-black/20 p-3 rounded-xl border border-white dark:border-transparent shadow-sm">
                                 <i class="fa-solid fa-print text-bunni-gold ml-3 text-base"></i>
                                 <span class="leading-snug">طابعة ملونة وورق وقرطاسية.</span>
@@ -675,31 +667,31 @@
                         </div>
 
                         <!-- الاشتراكات التسويقية -->
-                        <h4 class="font-bold text-bunni-espresso dark:text-white mt-8 mb-4 flex items-center text-lg">
+                        <h4 class="font-display font-bold text-bunni-espresso dark:text-white mt-8 mb-4 flex items-center text-lg">
                             <i class="fa-solid fa-star text-bunni-accent ml-2"></i> باقات الاشتراك
                         </h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="bg-white/80 dark:bg-bunni-darkCard/80 p-4 rounded-2xl border-2 border-bunni-gold/30 relative overflow-hidden transition-all hover:border-bunni-gold">
-                                <div class="absolute top-0 left-0 bg-bunni-gold text-white text-xs font-bold px-3 py-1 rounded-br-lg">مرن</div>
-                                <h5 class="font-bold text-bunni-espresso dark:text-white text-lg mb-1">الاشتراك اليومي</h5>
-                                <span class="font-black text-bunni-accent text-xl mt-2 block">2,500 د.ع</span>
+                                <div class="absolute top-0 left-0 bg-bunni-gold text-white text-xs font-bold px-3 py-1 rounded-br-lg font-sans">مرن</div>
+                                <h5 class="font-display font-bold text-bunni-espresso dark:text-white text-lg mb-1">الاشتراك اليومي</h5>
+                                <span class="font-display font-black text-bunni-accent text-xl mt-2 block">2,500 د.ع</span>
                             </div>
                             <div class="bg-white/80 dark:bg-bunni-darkCard/80 p-4 rounded-2xl border-2 border-bunni-gold/30 relative overflow-hidden transition-all hover:border-bunni-gold">
-                                <div class="absolute top-0 left-0 bg-bunni-gold text-white text-xs font-bold px-3 py-1 rounded-br-lg">توفير</div>
-                                <h5 class="font-bold text-bunni-espresso dark:text-white text-lg mb-1">الاشتراك الأسبوعي</h5>
-                                <span class="font-black text-bunni-accent text-xl mt-2 block">10,000 د.ع</span>
+                                <div class="absolute top-0 left-0 bg-bunni-gold text-white text-xs font-bold px-3 py-1 rounded-br-lg font-sans">توفير</div>
+                                <h5 class="font-display font-bold text-bunni-espresso dark:text-white text-lg mb-1">الاشتراك الأسبوعي</h5>
+                                <span class="font-display font-black text-bunni-accent text-xl mt-2 block">10,000 د.ع</span>
                             </div>
                             <div class="bg-white/80 dark:bg-bunni-darkCard/80 p-4 rounded-2xl border-2 border-bunni-accent/60 relative overflow-hidden shadow-sm transition-all hover:border-bunni-accent">
-                                <div class="absolute top-0 left-0 bg-bunni-accent text-white text-xs font-bold px-3 py-1 rounded-br-lg">الأكثر قيمة</div>
-                                <h5 class="font-bold text-bunni-espresso dark:text-white text-lg mb-2">الاشتراك الشهري</h5>
-                                <p class="text-xs text-bunni-mocha dark:text-gray-300 mb-3">الاشتراك الشهري يشمل تخفيض <span class="font-bold text-bunni-accent">10%</span> على كافة المشروبات.</p>
-                                <span class="font-black text-bunni-accent text-xl">35,000 د.ع</span>
+                                <div class="absolute top-0 left-0 bg-bunni-accent text-white text-xs font-bold px-3 py-1 rounded-br-lg font-sans">الأكثر قيمة</div>
+                                <h5 class="font-display font-bold text-bunni-espresso dark:text-white text-lg mb-2">الاشتراك الشهري</h5>
+                                <p class="text-xs font-sans text-bunni-mocha dark:text-gray-300 mb-3">الاشتراك الشهري يشمل تخفيض <span class="font-bold text-bunni-accent">10%</span> على كافة المشروبات.</p>
+                                <span class="font-display font-black text-bunni-accent text-xl">35,000 د.ع</span>
                             </div>
                             <div class="bg-gradient-to-br from-bunni-gold/20 to-bunni-accent/20 dark:from-bunni-gold/10 dark:to-bunni-accent/10 p-4 rounded-2xl border-2 border-bunni-accent relative overflow-hidden shadow-md">
-                                <div class="absolute top-0 left-0 bg-bunni-accent text-white text-xs font-bold px-3 py-1 rounded-br-lg"><i class="fa-solid fa-crown ml-1"></i> VIP</div>
-                                <h5 class="font-bold text-bunni-espresso dark:text-white text-lg mb-2">الاشتراك الذهبي</h5>
-                                <p class="text-xs text-bunni-mocha dark:text-gray-300 mb-3">اشتراك شهري لغرفة الدراسة وغرفة القطط مع تخفيض <span class="font-bold text-bunni-accent">20%</span> على كافة المشروبات.</p>
-                                <span class="font-black text-bunni-accent text-xl">65,000 د.ع</span>
+                                <div class="absolute top-0 left-0 bg-bunni-accent text-white text-xs font-bold px-3 py-1 rounded-br-lg font-sans"><i class="fa-solid fa-crown ml-1"></i> VIP</div>
+                                <h5 class="font-display font-bold text-bunni-espresso dark:text-white text-lg mb-2">الاشتراك الذهبي</h5>
+                                <p class="text-xs font-sans text-bunni-mocha dark:text-gray-300 mb-3">اشتراك شهري لغرفة الدراسة وغرفة القطط مع تخفيض <span class="font-bold text-bunni-accent">20%</span> على كافة المشروبات.</p>
+                                <span class="font-display font-black text-bunni-accent text-xl">65,000 د.ع</span>
                             </div>
                         </div>
                     </div>
@@ -711,7 +703,7 @@
                 <div class="bg-white dark:bg-bunni-darkCard rounded-[32px] p-6 shadow-premium border border-bunni-surface dark:border-bunni-darkBorder relative overflow-hidden transition-colors">
 
                     <div class="relative z-10 text-center mb-8">
-                        <span class="bg-bunni-surface dark:bg-bunni-darkSurface text-bunni-espresso dark:text-white font-bold text-xs px-4 py-1.5 rounded-full border border-bunni-gold/30 shadow-sm transition-colors">
+                        <span class="font-sans bg-bunni-surface dark:bg-bunni-darkSurface text-bunni-espresso dark:text-white font-bold text-xs px-4 py-1.5 rounded-full border border-bunni-gold/30 shadow-sm transition-colors">
                             أول مقهى قطط في بابل ☕🐈
                         </span>
                         <h2 class="text-2xl font-display font-bold text-bunni-espresso dark:text-white mt-4">موقعنا وتواصل معنا</h2>
@@ -723,9 +715,9 @@
                                 <i class="fa-regular fa-clock text-xl"></i>
                             </div>
                             <div>
-                                <p class="text-xs text-bunni-latte dark:text-gray-400 font-bold mb-0.5">أوقات العمل</p>
-                                <p class="text-[14px] font-black text-bunni-espresso dark:text-white" dir="ltr">07:00 AM - 11:59 PM</p>
-                                <p class="text-[10px] text-green-600 dark:text-green-400 font-bold flex items-center gap-1.5 mt-1">
+                                <p class="text-xs font-sans text-bunni-latte dark:text-gray-400 font-bold mb-0.5">أوقات العمل</p>
+                                <p class="text-[15px] font-display font-bold text-bunni-espresso dark:text-white" dir="ltr">07:00 AM - 11:59 PM</p>
+                                <p class="text-[10px] font-sans text-green-600 dark:text-green-400 font-bold flex items-center gap-1.5 mt-1">
                                     <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> متواجدون يومياً
                                 </p>
                             </div>
@@ -736,8 +728,8 @@
                                 <i class="fa-solid fa-phone-volume text-lg"></i>
                             </div>
                             <div>
-                                <p class="text-xs text-bunni-latte dark:text-gray-400 font-bold mb-0.5">للطلب والاستفسار</p>
-                                <p class="text-base font-black text-bunni-espresso dark:text-white tracking-wider" dir="ltr">0781 942 3456</p>
+                                <p class="text-xs font-sans text-bunni-latte dark:text-gray-400 font-bold mb-0.5">للطلب والاستفسار</p>
+                                <p class="text-base font-display font-bold text-bunni-espresso dark:text-white tracking-wider" dir="ltr">0781 942 3456</p>
                             </div>
                         </a>
 
@@ -746,8 +738,8 @@
                                 <i class="fa-brands fa-instagram text-xl"></i>
                             </div>
                             <div>
-                                <p class="text-xs text-bunni-latte dark:text-gray-400 font-bold mb-0.5">تابعنا على انستكرام</p>
-                                <p class="text-sm font-black text-bunni-espresso dark:text-white tracking-wide">@bunnicatcafe</p>
+                                <p class="text-xs font-sans text-bunni-latte dark:text-gray-400 font-bold mb-0.5">تابعنا على انستكرام</p>
+                                <p class="text-sm font-display font-bold text-bunni-espresso dark:text-white tracking-wide">@bunnicatcafe</p>
                             </div>
                         </a>
 
@@ -756,8 +748,8 @@
                                 <i class="fa-solid fa-globe text-lg"></i>
                             </div>
                             <div>
-                                <p class="text-xs text-bunni-latte dark:text-gray-400 font-bold mb-0.5">موقعنا الإلكتروني</p>
-                                <p class="text-sm font-black text-bunni-espresso dark:text-white tracking-wide">bunnicafe.com</p>
+                                <p class="text-xs font-sans text-bunni-latte dark:text-gray-400 font-bold mb-0.5">موقعنا الإلكتروني</p>
+                                <p class="text-sm font-display font-bold text-bunni-espresso dark:text-white tracking-wide">bunnicafe.com</p>
                             </div>
                         </a>
                     </div>
@@ -768,8 +760,8 @@
                                 <i class="fa-solid fa-location-dot text-xl animate-bounce"></i>
                             </div>
                             <div class="flex-1">
-                                <p class="text-xs text-bunni-gold dark:text-bunni-mocha font-bold mb-1">موقعنا على الخريطة 📍</p>
-                                <p class="text-sm md:text-base font-bold leading-snug">بابل - الحلة - شارع ٤٠</p>
+                                <p class="text-xs font-sans text-bunni-gold dark:text-bunni-mocha font-bold mb-1">موقعنا على الخريطة 📍</p>
+                                <p class="text-sm font-display md:text-base font-bold leading-snug">بابل - الحلة - شارع ٤٠</p>
                             </div>
                             <div class="w-10 h-10 shrink-0 rounded-full bg-bunni-gold dark:bg-bunni-espresso text-bunni-espresso dark:text-white flex items-center justify-center transform group-hover:-translate-x-2 transition-transform">
                                 <i class="fa-solid fa-arrow-left"></i>
@@ -781,11 +773,10 @@
 
         </main>
 
-        <!-- زر الواتساب الفاخر والممتد (للطلب والتوصيل) -->
+        <!-- زر الواتساب -->
         <a href="https://wa.me/9647819423456" target="_blank" class="fixed bottom-6 left-5 z-50 flex items-center gap-3 bg-gradient-to-r from-[#25D366] to-[#128C7E] text-white py-3.5 px-6 rounded-full shadow-float transition-all active:scale-95 hover:shadow-lg group border-2 border-white dark:border-bunni-darkCard">
             <i class="fa-brands fa-whatsapp text-[1.4rem] group-hover:scale-110 transition-transform"></i>
-            <span class="font-bold text-[14px] pb-0.5 tracking-wide">للطلب ديليفري</span>
-            <!-- النبض الأحمر لجذب الانتباه -->
+            <span class="font-display font-bold text-[14px] pb-0.5 tracking-wide">للطلب ديليفري</span>
             <span class="absolute -top-1.5 -right-1.5 flex h-4 w-4">
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-4 w-4 bg-red-500 border-2 border-white dark:border-bunni-darkCard"></span>
@@ -800,7 +791,6 @@
             const splashScreen = document.getElementById('premium-splash');
             const appContent = document.getElementById('app-content');
             
-            // Check session storage to see if Splash has already been played
             if (sessionStorage.getItem('bunni_splash_played')) {
                 if (splashScreen) splashScreen.remove();
                 if (appContent) {
@@ -810,20 +800,16 @@
             } else {
                 let isExiting = false;
 
-                // Dedicated Cinematic Exit Routine
                 const executeExitAnimation = () => {
                     if (isExiting || !splashScreen) return;
                     isExiting = true;
 
-                    // Trigger ultra-smooth GPU transition (scale, blur, fade opacity)
                     splashScreen.classList.add('splash-exit');
                     
-                    // Reveal app naturally underneath
                     if (appContent) {
                         appContent.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
                     }
 
-                    // Remove cleanly after 1500ms transition completes perfectly (matches CSS timing)
                     setTimeout(() => {
                         splashScreen.remove();
                         document.body.classList.remove('splash-locked');
@@ -831,18 +817,16 @@
                     }, 1500);
                 };
 
-                // Wait for hero.webp background
                 const heroImg = new Image();
                 heroImg.src = './images/hero.webp';
                 const imgLoadPromise = new Promise((resolve) => {
                     if (heroImg.complete) resolve();
                     else {
                         heroImg.addEventListener('load', resolve);
-                        heroImg.addEventListener('error', resolve); // Prevents infinite loading
+                        heroImg.addEventListener('error', resolve); 
                     }
                 });
                 
-                // Wait for logo image
                 const logoImg = new Image();
                 logoImg.src = './images/splash-logo6.WEBP';
                 const logoLoadPromise = new Promise((resolve) => {
@@ -853,7 +837,6 @@
                     }
                 });
 
-                // Wait until DOM and CSS are fully parsed
                 const windowLoadPromise = new Promise((resolve) => {
                     if (document.readyState === 'complete') {
                         resolve();
@@ -862,16 +845,13 @@
                     }
                 });
 
-                // Display minimum time 3.5 seconds for premium presentation
                 const minDisplayPromise = new Promise(resolve => setTimeout(resolve, 3500));
 
-                // Execute removal only when DOM, CSS, Image are loaded & timer is met
                 Promise.all([imgLoadPromise, logoLoadPromise, windowLoadPromise, minDisplayPromise])
                     .then(() => {
                         executeExitAnimation();
                     });
 
-                // Safety Fallback maximum 8 seconds (prevents getting stuck)
                 setTimeout(() => {
                     executeExitAnimation();
                 }, 8000);
@@ -918,15 +898,17 @@
                         const itemImg = item.image || cat.defaultImage;
                         html += `
                             <div class="min-w-[220px] w-[220px] bg-white dark:bg-bunni-darkCard rounded-3xl p-3 shadow-sm border border-bunni-surface dark:border-bunni-darkBorder snap-center relative transition-colors">
-                                <div class="bestseller-badge absolute top-4 right-4 bg-bunni-accent text-white text-[10px] font-bold px-3 py-1 rounded-full z-10">
+                                <div class="bestseller-badge absolute top-4 right-4 bg-bunni-accent text-white font-sans text-[10px] font-bold px-3 py-1 rounded-full z-10">
                                     <i class="fa-solid fa-star text-[8px] ml-1"></i> ننصح به
                                 </div>
                                 <div class="h-32 w-full rounded-2xl overflow-hidden mb-3 bg-bunni-surface dark:bg-bunni-darkSurface pointer-events-none select-none">
                                     <img src="${itemImg}" alt="" loading="lazy" class="w-full h-full object-cover" draggable="false" onerror="this.src='https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=600&q=80'">
                                 </div>
-                                <h3 class="font-bold text-bunni-espresso dark:text-white text-base line-clamp-1">${item.name}</h3>
+                                <!-- تم استخدام الخط الفاخر هنا -->
+                                <h3 class="font-display font-bold text-bunni-espresso dark:text-white text-base line-clamp-1">${item.name}</h3>
                                 <div class="flex items-center justify-between mt-2">
-                                    <span class="font-black text-bunni-gold">${item.price}</span>
+                                    <!-- تم استخدام الخط الفاخر للسعر -->
+                                    <span class="font-display font-black text-lg text-bunni-gold">${item.price}</span>
                                     <div class="w-8 h-8 rounded-full bg-bunni-bg dark:bg-bunni-darkSurface flex items-center justify-center text-bunni-espresso dark:text-white">
                                         <i class="fa-solid fa-plus text-xs"></i>
                                     </div>
@@ -954,8 +936,9 @@
                 const isActive = index === 0 ? 'active' : '';
                 tabsHTML += `
                     <li>
+                        <!-- تم استخدام الخط الفاخر للتبويبات -->
                         <button onclick="scrollToSection('${cat.id}')" 
-                           class="nav-pill ${isActive} flex items-center gap-2 px-4 py-2 rounded-full border border-bunni-gold/30 bg-white dark:bg-bunni-darkCard text-sm font-bold text-bunni-mocha dark:text-white shadow-sm transition-all hover:border-bunni-gold group" 
+                           class="nav-pill ${isActive} font-display flex items-center gap-2 px-4 py-2 rounded-full border border-bunni-gold/30 bg-white dark:bg-bunni-darkCard text-sm font-bold text-bunni-mocha dark:text-white shadow-sm transition-all hover:border-bunni-gold group" 
                            data-target="${cat.id}">
                             <div class="nav-icon-box w-7 h-7 rounded-full bg-bunni-surface dark:bg-bunni-darkSurface flex items-center justify-center text-bunni-gold transition-colors duration-300 group-hover:bg-bunni-gold group-hover:text-white">
                                 <i class="${cat.icon} text-[12px]"></i>
@@ -1000,7 +983,7 @@
                     <div class="text-center py-20">
                         <i class="fa-solid fa-mug-hot text-6xl text-bunni-surface dark:text-bunni-darkSurface mb-4 block"></i>
                         <h3 class="text-2xl font-display font-bold text-bunni-espresso dark:text-white">لم نجد هذا الطلب</h3>
-                        <p class="text-bunni-latte dark:text-gray-400 mt-2">جرب البحث بكلمة أخرى أو تصفح المنيو.</p>
+                        <p class="font-sans text-bunni-latte dark:text-gray-400 mt-2">جرب البحث بكلمة أخرى أو تصفح المنيو.</p>
                     </div>
                 `;
                 return;
@@ -1026,21 +1009,23 @@
                 category.items.forEach(item => {
                     const itemImg = item.image || category.defaultImage;
                     const badgeHTML = item.badge 
-                        ? `<span class="bg-bunni-surface dark:bg-bunni-darkSurface text-bunni-espresso dark:text-white font-bold text-[10px] px-2 py-1 rounded-md border border-bunni-gold/20">${item.badge}</span>` 
+                        ? `<span class="bg-bunni-surface dark:bg-bunni-darkSurface text-bunni-espresso dark:text-white font-sans font-bold text-[10px] px-2 py-1 rounded-md border border-bunni-gold/20">${item.badge}</span>` 
                         : '';
                     const descHTML = item.description 
-                        ? `<p class="text-[12px] text-bunni-latte dark:text-gray-400 mt-1.5 leading-snug line-clamp-2">${item.description}</p>` 
+                        ? `<p class="text-[12px] font-sans text-bunni-latte dark:text-gray-400 mt-1.5 leading-snug line-clamp-2">${item.description}</p>` 
                         : '';
 
                     html += `
                         <div class="bg-white dark:bg-bunni-darkCard rounded-[20px] p-2.5 shadow-sm border border-bunni-surface dark:border-bunni-darkBorder flex items-center gap-3 transition-colors active:scale-[0.98]">
                             <div class="flex-1 py-1 pr-1">
                                 <div class="flex items-start justify-between mb-1">
-                                    <h3 class="font-bold text-bunni-espresso dark:text-white text-[14px] leading-tight">${item.name}</h3>
+                                    <!-- تم استخدام الخط الفاخر لأسماء القائمة -->
+                                    <h3 class="font-display font-bold text-bunni-espresso dark:text-white text-[15px] leading-tight">${item.name}</h3>
                                 </div>
                                 ${descHTML}
                                 <div class="flex items-center gap-2 mt-2">
-                                    <span class="font-black text-bunni-gold text-sm">${item.price}</span>
+                                    <!-- تم استخدام الخط الفاخر للأسعار -->
+                                    <span class="font-display font-black text-bunni-gold text-base">${item.price}</span>
                                     ${badgeHTML}
                                 </div>
                             </div>
@@ -1059,10 +1044,10 @@
                     html += `
                         <div class="mt-5 bg-bunni-surface/50 dark:bg-bunni-darkSurface border border-bunni-gold/20 rounded-[20px] p-4 relative overflow-hidden transition-colors">
                             <i class="fa-solid fa-shield-cat absolute -left-6 -bottom-6 text-7xl text-bunni-gold/5 rotate-[-15deg]"></i>
-                            <h4 class="font-bold text-bunni-espresso dark:text-white mb-3 flex items-center text-sm relative z-10">
+                            <h4 class="font-display font-bold text-bunni-espresso dark:text-white mb-3 flex items-center text-sm relative z-10">
                                 <i class="fa-solid fa-circle-exclamation text-bunni-accent ml-2 text-base"></i> تعليمات ${category.title}
                             </h4>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4 text-[12px] font-medium text-bunni-mocha dark:text-gray-300 relative z-10">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4 text-[12px] font-sans font-medium text-bunni-mocha dark:text-gray-300 relative z-10">
                     `;
                     category.rules.forEach(rule => {
                         html += `
@@ -1082,7 +1067,7 @@
                     if (addOnsCategory) {
                         html += `
                             <div class="w-full mt-6 mb-2">
-                                <h3 class="font-bold text-bunni-espresso dark:text-white text-lg mb-3 flex items-center">
+                                <h3 class="font-display font-bold text-bunni-espresso dark:text-white text-lg mb-3 flex items-center">
                                     <i class="fa-solid fa-plus-circle text-bunni-gold ml-2"></i> ${addOnsCategory.title}
                                 </h3>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -1090,8 +1075,8 @@
                         addOnsCategory.items.forEach(item => {
                             html += `
                                 <div class="bg-white/60 dark:bg-bunni-darkCard/60 rounded-xl p-3 flex items-center justify-between border border-bunni-gold/20">
-                                    <span class="font-bold text-bunni-espresso dark:text-white text-[13px]">${item.name}</span>
-                                    <span class="font-black text-bunni-accent text-sm">${item.price}</span>
+                                    <span class="font-display font-bold text-bunni-espresso dark:text-white text-[14px]">${item.name}</span>
+                                    <span class="font-display font-black text-bunni-accent text-base">${item.price}</span>
                                 </div>
                             `;
                         });
