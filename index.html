@@ -9,7 +9,7 @@
     
     <!-- Preloading Assets for Premium Splash Screen -->
     <link rel="preload" href="./images/hero.webp" as="image">
-    <link rel="preload" href="./images/splash-logo.png" as="image">
+    <link rel="preload" href="./images/splash-logo.webp" as="image">
     
     <!-- خطوط عربية فاخرة -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -133,25 +133,25 @@
             height: 100vh !important;
         }
 
-        /* === 10/10 LUXURY SPLASH SCREEN CSS === */
+        /* === 50-YEAR EXPERT LUXURY SPLASH SCREEN CSS === */
         #premium-splash {
             position: fixed;
             inset: 0;
             z-index: 999999;
-            background-color: #0B0908 !important; /* Espresso Dark */
+            background-color: #0B0908 !important;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            /* Cinematic Exit Transition */
-            transition: opacity 1.2s cubic-bezier(0.76, 0, 0.24, 1), visibility 1.2s;
+            /* خروج سينمائي أبطأ وأكثر نعومة */
+            transition: opacity 1.5s cubic-bezier(0.76, 0, 0.24, 1), visibility 1.5s;
             will-change: opacity;
         }
 
         .splash-bg-wrapper {
             position: absolute;
-            inset: -10%; /* Buffer for scaling without edge clipping */
+            inset: -10%;
             width: 120%;
             height: 120%;
             z-index: 1;
@@ -162,16 +162,17 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.7;
+            opacity: 0.6; /* تقليل الشفافية قليلاً للتركيز على الشعار */
             transform: scale(1.15);
-            animation: premium-bg-pan 10s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            /* حركة خلفية بطيئة جداً ومهيبة (15 ثانية بدلاً من 10) */
+            animation: premium-bg-pan 15s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
             will-change: transform;
         }
 
         .splash-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, #0B0908 0%, rgba(11, 9, 8, 0.5) 40%, rgba(11, 9, 8, 0.2) 100%);
+            background: linear-gradient(to top, #0B0908 0%, rgba(11, 9, 8, 0.6) 40%, rgba(11, 9, 8, 0.3) 100%);
         }
 
         .splash-content-wrapper {
@@ -180,27 +181,27 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* Ultra-smooth exit transform & blur */
-            transition: transform 1.2s cubic-bezier(0.76, 0, 0.24, 1), filter 1.2s cubic-bezier(0.76, 0, 0.24, 1);
+            transition: transform 1.5s cubic-bezier(0.76, 0, 0.24, 1), filter 1.5s cubic-bezier(0.76, 0, 0.24, 1);
             will-change: transform, filter;
         }
 
         .splash-logo-container {
             position: relative;
-            width: 130px;
-            height: 130px;
-            margin-bottom: 24px;
+            width: 140px; /* تكبير الشعار قليلاً للهيبة */
+            height: 140px;
+            margin-bottom: 28px;
         }
 
         .splash-brand-logo {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 32px;
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(212, 163, 115, 0.15);
+            border-radius: 36px; /* نعومة أكثر في الزوايا */
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(212, 163, 115, 0.2);
             opacity: 0;
-            transform: scale(0.9) translateY(20px);
-            animation: luxury-fade-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+            transform: scale(0.85) translateY(25px);
+            /* ظهور الشعار ببطء وثقة */
+            animation: luxury-fade-up 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
             will-change: transform, opacity;
             position: relative;
             z-index: 2;
@@ -209,51 +210,55 @@
         .splash-glow {
             position: absolute;
             inset: 0;
-            border-radius: 32px;
-            box-shadow: 0 0 50px rgba(212, 163, 115, 0.35);
+            border-radius: 36px;
+            box-shadow: 0 0 60px rgba(212, 163, 115, 0.4);
             opacity: 0;
-            animation: luxury-glow-pulse 2.5s ease-in-out 1s infinite alternate;
+            /* نبض أبطأ وأكثر فخامة */
+            animation: luxury-glow-pulse 3.5s ease-in-out 1.5s infinite alternate;
             z-index: 1;
         }
 
         .splash-title {
             font-family: 'Cairo', sans-serif;
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             font-weight: 900;
             color: #FDFBF7;
             margin: 0;
             opacity: 0;
             transform: translateY(15px);
-            animation: luxury-fade-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+            /* تأخير ظهور الاسم ليعطي الشعار حقه أولاً */
+            animation: luxury-fade-up 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
             letter-spacing: -0.01em;
-            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
         }
 
         .splash-subtitle {
             font-family: 'Tajawal', sans-serif;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 700;
             color: #D4A373;
-            margin-top: 8px;
+            margin-top: 10px;
             opacity: 0;
             transform: translateY(15px);
-            animation: luxury-fade-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
-            letter-spacing: 0.2em;
+            /* يظهر بعد الاسم بقليل */
+            animation: luxury-fade-up 1.5s cubic-bezier(0.16, 1, 0.3, 1) 1.1s forwards;
+            letter-spacing: 0.25em;
             text-transform: uppercase;
         }
 
         /* Elegant Progress Line */
         .splash-progress-container {
             position: absolute;
-            bottom: 50px;
-            width: 140px;
+            bottom: 60px;
+            width: 160px;
             height: 2px;
-            background-color: rgba(253, 251, 247, 0.1);
+            background-color: rgba(253, 251, 247, 0.08);
             border-radius: 2px;
             overflow: hidden;
             z-index: 2;
             opacity: 0;
-            animation: luxury-fade-in 1s ease 0.8s forwards;
+            /* لا يظهر إلا بعد استقرار جميع العناصر */
+            animation: luxury-fade-in 1.5s ease 1.5s forwards;
         }
 
         .splash-progress-bar {
@@ -261,11 +266,12 @@
             top: 0;
             left: 0;
             height: 100%;
-            width: 40%;
+            width: 30%;
             background-color: #D4A373;
             border-radius: 2px;
-            box-shadow: 0 0 10px rgba(212, 163, 115, 0.6);
-            animation: luxury-loading-slide 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+            box-shadow: 0 0 12px rgba(212, 163, 115, 0.7);
+            /* حركة تحميل بطيئة توحي بالوزن والفخامة */
+            animation: luxury-loading-slide 2.5s cubic-bezier(0.65, 0, 0.35, 1) infinite;
             will-change: transform;
         }
 
@@ -276,24 +282,24 @@
         }
         
         #premium-splash.splash-exit .splash-content-wrapper {
-            transform: scale(1.15) translateY(-15px);
-            filter: blur(12px);
+            transform: scale(1.1) translateY(-20px); /* صعود خفيف للأعلى عند الاختفاء */
+            filter: blur(15px);
         }
         
         #premium-splash.splash-exit .splash-bg-img {
-            transform: scale(1.2); 
+            transform: scale(1.25); 
             opacity: 0;
-            transition: transform 1.2s cubic-bezier(0.76, 0, 0.24, 1), opacity 1.2s ease;
+            transition: transform 1.5s cubic-bezier(0.76, 0, 0.24, 1), opacity 1.5s ease;
         }
 
         /* GPU Animations */
         @keyframes premium-bg-pan {
             0% { transform: scale(1.15); }
-            100% { transform: scale(1); }
+            100% { transform: scale(1.02); } /* لا يصل للـ 1 ليبقى الانطباع بالاستمرارية */
         }
 
         @keyframes luxury-fade-up {
-            0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+            0% { opacity: 0; transform: scale(0.85) translateY(25px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
@@ -303,13 +309,13 @@
         }
 
         @keyframes luxury-glow-pulse {
-            0% { opacity: 0.4; transform: scale(1); }
-            100% { opacity: 0.8; transform: scale(1.03); }
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 0.7; transform: scale(1.04); }
         }
 
         @keyframes luxury-loading-slide {
             0% { transform: translateX(-150%); }
-            100% { transform: translateX(250%); }
+            100% { transform: translateX(350%); } /* مسافة أطول لجعله يبدو أبطأ */
         }
 
         /* Respect Reduced Motion */
@@ -329,7 +335,7 @@
                 filter: none !important;
             }
             #premium-splash {
-                transition: opacity 0.6s ease, visibility 0.6s ease;
+                transition: opacity 0.8s ease, visibility 0.8s ease;
             }
         }
     </style>
@@ -357,7 +363,7 @@
         <!-- Premium Content (Fade, Scale, Soft Glow) -->
         <div class="splash-content-wrapper">
             <div class="splash-logo-container">
-                <img src="./images/splash-logo.png" onerror="this.src='https://i.postimg.cc/vDZ1S2X8/logo.jpg'" alt="Bunni Logo" class="splash-brand-logo" draggable="false">
+                <img src="./images/splash-logo.webp" onerror="this.src='https://i.postimg.cc/vDZ1S2X8/logo.jpg'" alt="Bunni Logo" class="splash-brand-logo" draggable="false">
                 <div class="splash-glow"></div>
             </div>
             <h1 class="splash-title" dir="ltr">Bunni Cat & Coffee</h1>
@@ -372,7 +378,7 @@
     </div>
 
     <!-- === APP CONTENT WRAPPER === -->
-    <div id="app-content" class="opacity-0 translate-y-8 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none">
+    <div id="app-content" class="opacity-0 translate-y-10 transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none">
 
         <!-- قاعدة البيانات مع المسارات المصححة بدقة تامة -->
         <script>
@@ -383,18 +389,18 @@
                     icon: "fa-solid fa-mug-hot",
                     defaultImage: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "أمريكانو 🔥❄️", price: "3,500 د.ع", badge: "الاختيار الكلاسيكي", image: "./images/americano.PNG", popular: true, description: "قهوة سوداء غنية، مستخلصة بعناية." },
-                        { name: "كابوتشينو 🔥", price: "4,000 د.ع", image: "./images/cappuccino.png", popular: true, description: "رغوة حليب كثيفة مع الإسبريسو." },
-                        { name: "فلات وايت 🔥", price: "4,000 د.ع", image: "./images/flat-white.png" },
-                        { name: "موكا 🔥❄️", price: "4,500 د.ع", image: "./images/mocha.png" },
-                        { name: "دبل أسبريسو 🔥", price: "3,000 د.ع", image: "./images/double-espresso.png" },
-                        { name: "ماكياتو 🔥", price: "3,000 د.ع", image: "./images/macchiato.png" },
-                        { name: "لونكو 🔥", price: "3,000 د.ع", image: "./images/lungo.png" },
-                        { name: "بيكولو 🔥", price: "3,500 د.ع", image: "./images/piccolo.png" },
-                        { name: "كورتادو 🔥", price: "3,500 د.ع", image: "./images/cortado.png" },
-                        { name: "كراميل مكياتو 🔥❄️", price: "4,500 د.ع", image: "./images/caramel-macchiato.png" },
-                        { name: "أفكاتو 🔥", price: "3,500 د.ع", image: "./images/affogato.png" },
-                        { name: "قهوة تركية 🔥", price: "2,500 د.ع", image: "./images/turkish-coffee.png" }
+                        { name: "أمريكانو 🔥❄️", price: "3,500 د.ع", badge: "الاختيار الكلاسيكي", image: "./images/americano.webp", popular: true, description: "قهوة سوداء غنية، مستخلصة بعناية." },
+                        { name: "كابوتشينو 🔥", price: "4,000 د.ع", image: "./images/cappuccino.webp", popular: true, description: "رغوة حليب كثيفة مع الإسبريسو." },
+                        { name: "فلات وايت 🔥", price: "4,000 د.ع", image: "./images/flat-white.webp" },
+                        { name: "موكا 🔥❄️", price: "4,500 د.ع", image: "./images/mocha.webp" },
+                        { name: "دبل أسبريسو 🔥", price: "3,000 د.ع", image: "./images/double-espresso.webp" },
+                        { name: "ماكياتو 🔥", price: "3,000 د.ع", image: "./images/macchiato.webp" },
+                        { name: "لونكو 🔥", price: "3,000 د.ع", image: "./images/lungo.webp" },
+                        { name: "بيكولو 🔥", price: "3,500 د.ع", image: "./images/piccolo.webp" },
+                        { name: "كورتادو 🔥", price: "3,500 د.ع", image: "./images/cortado.webp" },
+                        { name: "كراميل مكياتو 🔥❄️", price: "4,500 د.ع", image: "./images/caramel-macchiato.webp" },
+                        { name: "أفكاتو 🔥", price: "3,500 د.ع", image: "./images/affogato.webp" },
+                        { name: "قهوة تركية 🔥", price: "2,500 د.ع", image: "./images/turkish-coffee.webp" }
                     ]
                 },
                 {
@@ -403,12 +409,12 @@
                     icon: "fa-solid fa-mug-saucer",
                     defaultImage: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "سبانش لاتيه 🔥❄️", price: "4,500 د.ع", badge: "الأكثر مبيعاً", image: "./images/spanish-latte.png", popular: true },
-                        { name: "بستاشيو لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/pistachio-latte.png", popular: true },
-                        { name: "فانيلا لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/vanilla-latte.png" },
-                        { name: "بندق لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/hazelnut-latte.png" },
-                        { name: "لوتس لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/lotus-latte.png" },
-                        { name: "هلو كيتي لاتيه 🔥❄️", price: "4,500 د.ع", badge: "جديد", image: "./images/hello-kitty-latte.png" }
+                        { name: "سبانش لاتيه 🔥❄️", price: "4,500 د.ع", badge: "الأكثر مبيعاً", image: "./images/spanish-latte.webp", popular: true },
+                        { name: "بستاشيو لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/pistachio-latte.webp", popular: true },
+                        { name: "فانيلا لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/vanilla-latte.webp" },
+                        { name: "بندق لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/hazelnut-latte.webp" },
+                        { name: "لوتس لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/lotus-latte.webp" },
+                        { name: "هلو كيتي لاتيه 🔥❄️", price: "4,500 د.ع", badge: "جديد", image: "./images/hello-kitty-latte.webp" }
                     ]
                 },
                 {
@@ -417,11 +423,11 @@
                     icon: "fa-solid fa-filter",
                     defaultImage: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "سايفون", price: "اسأل الباريستا", description: "تحضير فريد بطريقة الغمر الكامل.", image: "./images/syphon.png" },
-                        { name: "V60", price: "اسأل الباريستا", description: "تقطير يدوي لنكهة نقية ومتوازنة.", image: "./images/v60.png" },
-                        { name: "كولد برو", price: "اسأل الباريستا", description: "قهوة باردة مخمرة ببطء لنكهة غنية.", image: "./images/cold-brew.png" },
-                        { name: "ايروبرس", price: "اسأل الباريستا", description: "قهوة غنية وسريعة التحضير.", image: "./images/aeropress.png" },
-                        { name: "كيمكس", price: "اسأل الباريستا", description: "تقطير بطيء لقهوة صافية وخفيفة.", image: "./images/chemex.png" }
+                        { name: "سايفون", price: "اسأل الباريستا", description: "تحضير فريد بطريقة الغمر الكامل.", image: "./images/syphon.webp" },
+                        { name: "V60", price: "اسأل الباريستا", description: "تقطير يدوي لنكهة نقية ومتوازنة.", image: "./images/v60.webp" },
+                        { name: "كولد برو", price: "اسأل الباريستا", description: "قهوة باردة مخمرة ببطء لنكهة غنية.", image: "./images/cold-brew.webp" },
+                        { name: "ايروبرس", price: "اسأل الباريستا", description: "قهوة غنية وسريعة التحضير.", image: "./images/aeropress.webp" },
+                        { name: "كيمكس", price: "اسأل الباريستا", description: "تقطير بطيء لقهوة صافية وخفيفة.", image: "./images/chemex.webp" }
                     ]
                 },
                 {
@@ -443,9 +449,9 @@
                     icon: "fa-solid fa-glass-water",
                     defaultImage: "https://images.unsplash.com/photo-1499961142813-edce3e550c62?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "آيس تي مكس بيري", price: "4,000 د.ع", badge: "منعش جداً", popular: true, image: "./images/mixed-berry-iced-tea.png" },
-                        { name: "آيس تي ستروبري", price: "4,000 د.ع", image: "./images/strawberry-iced-tea.png" },
-                        { name: "آيس تي ليمون بيج", price: "4,000 د.ع", image: "./images/lemon-iced-tea.png" }
+                        { name: "آيس تي مكس بيري", price: "4,000 د.ع", badge: "منعش جداً", popular: true, image: "./images/mixed-berry-iced-tea.webp" },
+                        { name: "آيس تي ستروبري", price: "4,000 د.ع", image: "./images/strawberry-iced-tea.webp" },
+                        { name: "آيس تي ليمون بيج", price: "4,000 د.ع", image: "./images/lemon-iced-tea.webp" }
                     ]
                 },
                 {
@@ -454,9 +460,9 @@
                     icon: "fa-solid fa-wand-magic-sparkles",
                     defaultImage: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "ليمون سبارك", price: "4,000 د.ع", image: "./images/lemon-spark.png" },
-                        { name: "ستروبري سبارك", price: "4,000 د.ع", image: "./images/strawberry-spark.png" },
-                        { name: "بلو گم سبارك", price: "4,000 د.ع", image: "./images/blue-cum-spark.png" }
+                        { name: "ليمون سبارك", price: "4,000 د.ع", image: "./images/lemon-spark.webp" },
+                        { name: "ستروبري سبارك", price: "4,000 د.ع", image: "./images/strawberry-spark.webp" },
+                        { name: "بلو گم سبارك", price: "4,000 د.ع", image: "./images/blue-cum-spark.webp" }
                     ]
                 },
                 {
@@ -465,9 +471,9 @@
                     icon: "fa-solid fa-glass-water-droplet",
                     defaultImage: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "سموذي ستروبري بنانا", price: "5,000 د.ع", image: "./images/strawberry-banana-smoothie.png" },
-                        { name: "سموذي خوخ", price: "5,000 د.ع", image: "./images/peach-smoothie.png" },
-                        { name: "سموذي مانكو باشن", price: "5,000 د.ع", image: "./images/mango-passion-smoothie.png" }
+                        { name: "سموذي ستروبري بنانا", price: "5,000 د.ع", image: "./images/strawberry-banana-smoothie.webp" },
+                        { name: "سموذي خوخ", price: "5,000 د.ع", image: "./images/peach-smoothie.webp" },
+                        { name: "سموذي مانكو باشن", price: "5,000 د.ع", image: "./images/mango-passion-smoothie.webp" }
                     ]
                 },
                 {
@@ -476,12 +482,12 @@
                     icon: "fa-solid fa-ice-cream",
                     defaultImage: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "ميلك شيك دارك چوكلت", price: "5,000 د.ع", image: "./images/dark-chocolate-milkshake.png" },
-                        { name: "ميلك شيك بستاشيو", price: "5,000 د.ع", image: "./images/pistachio-milkshake.png" },
-                        { name: "أوريو ميلك شيك", price: "5,000 د.ع", image: "./images/oreo-milkshake.png" },
-                        { name: "ستروبري ميلك شيك", price: "5,000 د.ع", image: "./images/strawberry-milkshake.png" },
-                        { name: "لوتس ميلك شيك", price: "5,000 د.ع", image: "./images/lotus-milkshake.png" },
-                        { name: "دوقا ميلك شيك", price: "5,000 د.ع", badge: "جديد", image: "./images/duga-milkshake.png" }
+                        { name: "ميلك شيك دارك چوكلت", price: "5,000 د.ع", image: "./images/dark-chocolate-milkshake.webp" },
+                        { name: "ميلك شيك بستاشيو", price: "5,000 د.ع", image: "./images/pistachio-milkshake.webp" },
+                        { name: "أوريو ميلك شيك", price: "5,000 د.ع", image: "./images/oreo-milkshake.webp" },
+                        { name: "ستروبري ميلك شيك", price: "5,000 د.ع", image: "./images/strawberry-milkshake.webp" },
+                        { name: "لوتس ميلك شيك", price: "5,000 د.ع", image: "./images/lotus-milkshake.webp" },
+                        { name: "دوقا ميلك شيك", price: "5,000 د.ع", badge: "جديد", image: "./images/duga-milkshake.webp" }
                     ]
                 },
                 {
@@ -490,10 +496,10 @@
                     icon: "fa-solid fa-snowflake",
                     defaultImage: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "جوكليت فراب", price: "5,000 د.ع", image: "./images/chocolate-frappe.png" },
-                        { name: "لوتس فراب", price: "5,000 د.ع", image: "./images/lotus-frappe.png" },
-                        { name: "بستاشيو فراب", price: "5,000 د.ع", image: "./images/pistachio-frappe.png" },
-                        { name: "كراميل فراب", price: "5,000 د.ع", image: "./images/caramel-frappe.png" }
+                        { name: "جوكليت فراب", price: "5,000 د.ع", image: "./images/chocolate-frappe.webp" },
+                        { name: "لوتس فراب", price: "5,000 د.ع", image: "./images/lotus-frappe.webp" },
+                        { name: "بستاشيو فراب", price: "5,000 د.ع", image: "./images/pistachio-frappe.webp" },
+                        { name: "كراميل فراب", price: "5,000 د.ع", image: "./images/caramel-frappe.webp" }
                     ]
                 },
                 {
@@ -502,9 +508,9 @@
                     icon: "fa-solid fa-leaf",
                     defaultImage: "https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "ريد ماتشا", price: "5,000 د.ع", image: "./images/red-matcha.png" },
-                        { name: "بلو ماتشا", price: "5,000 د.ع", image: "./images/blue-matcha.png" },
-                        { name: "بربل ماتشا", price: "5,000 د.ع", image: "./images/purple-matcha.png" }
+                        { name: "ريد ماتشا", price: "5,000 د.ع", image: "./images/red-matcha.webp" },
+                        { name: "بلو ماتشا", price: "5,000 د.ع", image: "./images/blue-matcha.webp" },
+                        { name: "بربل ماتشا", price: "5,000 د.ع", image: "./images/purple-matcha.webp" }
                     ]
                 },
                 {
@@ -513,15 +519,15 @@
                     icon: "fa-solid fa-cookie-bite",
                     defaultImage: "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "سان سباستيان", price: "4,000 د.ع", badge: "تذوب بالفم", image: "./images/san-sebastian.png", popular: true },
-                        { name: "سينامون رول", price: "4,000 د.ع", image: "./images/cinnamon-roll.png" },
-                        { name: "براونيز", price: "4,000 د.ع", image: "./images/brownies.png" },
-                        { name: "دونات سادة", price: "2,500 د.ع", image: "./images/plain-donut.png" },
-                        { name: "دونات محشية", price: "3,500 د.ع", description: "لوتس - جوكلت - بستاشيو", image: "./images/stuffed-donut.png" },
-                        { name: "فطيرة لحم", price: "2,000 د.ع", image: "./images/meat-pie.png" },
-                        { name: "فطيرة جبن", price: "2,500 د.ع", image: "./images/cheese-pie.png" },
-                        { name: "كرة لوتس قطعة واحدة", price: "750 د.ع", image: "./images/lotus-ball-single.png" },
-                        { name: "كرة لوتس ثلاث قطع", price: "2,000 د.ع", image: "./images/lotus-ball-three.png" }
+                        { name: "سان سباستيان", price: "4,000 د.ع", badge: "تذوب بالفم", image: "./images/san-sebastian.webp", popular: true },
+                        { name: "سينامون رول", price: "4,000 د.ع", image: "./images/cinnamon-roll.webp" },
+                        { name: "براونيز", price: "4,000 د.ع", image: "./images/brownies.webp" },
+                        { name: "دونات سادة", price: "2,500 د.ع", image: "./images/plain-donut.webp" },
+                        { name: "دونات محشية", price: "3,500 د.ع", description: "لوتس - جوكلت - بستاشيو", image: "./images/stuffed-donut.webp" },
+                        { name: "فطيرة لحم", price: "2,000 د.ع", image: "./images/meat-pie.webp" },
+                        { name: "فطيرة جبن", price: "2,500 د.ع", image: "./images/cheese-pie.webp" },
+                        { name: "كرة لوتس قطعة واحدة", price: "750 د.ع", image: "./images/lotus-ball-single.webp" },
+                        { name: "كرة لوتس ثلاث قطع", price: "2,000 د.ع", image: "./images/lotus-ball-three.webp" }
                     ]
                 },
                 {
@@ -530,12 +536,12 @@
                     icon: "fa-solid fa-heart-pulse",
                     defaultImage: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=600&q=80",
                     items: [
-                        { name: "بروتين سموذي", price: "6,000 د.ع", description: "24g Protein | 200 Calories", badge: "الأكثر طلباً 🔥", popular: true, image: "./images/protein-smoothie.png" },
-                        { name: "برتقال فريش", price: "4,000 د.ع", image: "./images/fresh-orange-juice.png" },
-                        { name: "ليمونادة", price: "4,000 د.ع", image: "./images/lemonade.png" },
-                        { name: "لاتيه فانيلا خالي السكر 🔥❄️", price: "5,000 د.ع", image: "./images/vanilla-sugar-free-latte.png" },
-                        { name: "لاتيه بندق خالي السكر 🔥❄️", price: "5,000 د.ع", image: "./images/hazelnut-sugar-free-latte.png" },
-                        { name: "لاتيه كراميل خالي السكر 🔥❄️", price: "5,000 د.ع", image: "./images/caramel-sugar-free-latte.png" }
+                        { name: "بروتين سموذي", price: "6,000 د.ع", description: "24g Protein | 200 Calories", badge: "الأكثر طلباً 🔥", popular: true, image: "./images/protein-smoothie.webp" },
+                        { name: "برتقال فريش", price: "4,000 د.ع", image: "./images/fresh-orange-juice.webp" },
+                        { name: "ليمونادة", price: "4,000 د.ع", image: "./images/lemonade.webp" },
+                        { name: "لاتيه فانيلا خالي السكر 🔥❄️", price: "5,000 د.ع", image: "./images/vanilla-sugar-free-latte.webp" },
+                        { name: "لاتيه بندق خالي السكر 🔥❄️", price: "5,000 د.ع", image: "./images/hazelnut-sugar-free-latte.webp" },
+                        { name: "لاتيه كراميل خالي السكر 🔥❄️", price: "5,000 د.ع", image: "./images/caramel-sugar-free-latte.webp" }
                     ]
                 },
                 {
@@ -588,7 +594,7 @@
             <div class="relative z-10 w-full max-w-2xl mx-auto px-6 text-center">
                 
                 <div class="w-28 h-28 mx-auto mb-4 bg-transparent rounded-full flex items-center justify-center shadow-lg border-0 outline-none ring-0 overflow-hidden select-none pointer-events-none">
-                    <img src="./images/splash-logo.png" onerror="this.src='https://i.postimg.cc/vDZ1S2X8/logo.jpg'" alt="" class="w-full h-full object-cover transform scale-[1.60] select-none pointer-events-none" draggable="false">
+                    <img src="./images/splash-logo.webp" onerror="this.src='https://i.postimg.cc/vDZ1S2X8/logo.jpg'" alt="" class="w-full h-full object-cover transform scale-[1.60] select-none pointer-events-none" draggable="false">
                 </div>
                 
                 <h1 class="font-display text-[2.2rem] leading-tight font-black text-bunni-espresso dark:text-white mb-2 tracking-normal">بُنّي كافيه</h1>
@@ -797,7 +803,7 @@
             if (sessionStorage.getItem('bunni_splash_played')) {
                 if (splashScreen) splashScreen.remove();
                 if (appContent) {
-                    appContent.classList.remove('opacity-0', 'translate-y-8', 'pointer-events-none');
+                    appContent.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
                 }
                 document.body.classList.remove('splash-locked');
             } else {
@@ -813,15 +819,15 @@
                     
                     // Reveal app naturally underneath
                     if (appContent) {
-                        appContent.classList.remove('opacity-0', 'translate-y-8', 'pointer-events-none');
+                        appContent.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
                     }
 
-                    // Remove cleanly after 1200ms transition completes perfectly (matches CSS timing)
+                    // Remove cleanly after 1500ms transition completes perfectly (matches CSS timing)
                     setTimeout(() => {
                         splashScreen.remove();
                         document.body.classList.remove('splash-locked');
                         sessionStorage.setItem('bunni_splash_played', 'true');
-                    }, 1200);
+                    }, 1500);
                 };
 
                 // Wait for hero.webp background
@@ -837,7 +843,7 @@
                 
                 // Wait for logo image
                 const logoImg = new Image();
-                logoImg.src = './images/splash-logo.png';
+                logoImg.src = './images/splash-logo.webp';
                 const logoLoadPromise = new Promise((resolve) => {
                     if (logoImg.complete) resolve();
                     else {
@@ -855,8 +861,8 @@
                     }
                 });
 
-                // Display minimum time 1.5 seconds for premium presentation
-                const minDisplayPromise = new Promise(resolve => setTimeout(resolve, 1500));
+                // Display minimum time 3.5 seconds for premium presentation (زُدنا الوقت لتعزيز الهوية البصرية)
+                const minDisplayPromise = new Promise(resolve => setTimeout(resolve, 3500));
 
                 // Execute removal only when DOM, CSS, Image are loaded & timer is met
                 Promise.all([imgLoadPromise, logoLoadPromise, windowLoadPromise, minDisplayPromise])
@@ -864,10 +870,10 @@
                         executeExitAnimation();
                     });
 
-                // Safety Fallback maximum 6 seconds (prevents getting stuck)
+                // Safety Fallback maximum 8 seconds (prevents getting stuck)
                 setTimeout(() => {
                     executeExitAnimation();
-                }, 6000);
+                }, 8000);
             }
         });
 
@@ -1164,5 +1170,4 @@
 </html>
 
 
-
-
+```
