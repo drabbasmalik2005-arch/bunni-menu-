@@ -12,7 +12,6 @@
     
     <!-- Preloading Assets -->
     <link rel="preload" href="./images/hero.webp" as="image">
-    <!-- مسار الصورة الجديد -->
     <link rel="preload" href="./images/splash-logo-final.png" as="image">
     
     <!-- خطوط عربية فاخرة -->
@@ -58,23 +57,19 @@
         }
     </script>
     <style>
-        /* === EXISTING CSS (تم علاج مشكلة تجميد الأندرويد هنا بإزالة overflow-x المخرب) === */
-        html, body {
-            width: 100%;
+        /* === EXISTING CSS (تم تنظيفه من الأكواد التي تشل الأجهزة القديمة) === */
+        html {
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* غلاف آمن لمنع خروج العناصر عن الشاشة بدون شل حركة السكرول */
-        .app-wrapper {
-            overflow-x: hidden;
-            width: 100%;
-        }
-
         body { 
+            overflow-x: hidden; /* تم نقله هنا ليعمل التمرير الطولي بشكل صحيح */
+            width: 100%;
             background-color: #FDFBF7;
             color: #2C1E16;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
+        
         html.dark body {
             background-color: #121212;
             color: #E0E0E0;
@@ -135,12 +130,7 @@
         .marquee-container { overflow: hidden; white-space: nowrap; }
         .marquee-content { display: inline-block; animation: marquee 25s linear infinite; }
 
-        body.splash-locked {
-            overflow: hidden !important;
-            height: 100vh !important;
-        }
-
-        /* === SPLASH SCREEN CSS (بقي كما هو تماماً بناء على طلبك) === */
+        /* === SPLASH SCREEN CSS === */
         #premium-splash {
             position: fixed;
             inset: 0;
@@ -194,7 +184,7 @@
             width: 140px;
             height: 140px;
             object-fit: contain;
-            filter: drop-shadow(0 15px 25px rgba(44, 30, 22, 0.4)); 
+            filter: drop-shadow(0 15px 25px rgba(44, 30, 22, 0.4));
             opacity: 0;
             transform: scale(0.85);
             animation: luxury-fade-up 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
@@ -274,7 +264,7 @@
         }
     </style>
 </head>
-<body class="antialiased pb-28 splash-locked font-sans">
+<body class="antialiased pb-28 font-sans">
 
     <script>
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -294,6 +284,7 @@
 
         <div class="splash-content-wrapper">
             <img src="./images/splash-logo-final.png" onerror="this.src='https://i.postimg.cc/vDZ1S2X8/logo.jpg'" alt="Bunni Logo" class="splash-logo-img select-none pointer-events-none" draggable="false" oncontextmenu="return false;">
+            
             <h1 class="splash-title" dir="ltr">Bunni Cat & Coffee</h1>
             <p class="splash-subtitle" dir="ltr">First Cat Café in Babylon</p>
         </div>
@@ -304,371 +295,411 @@
     </div>
 
     <!-- === APP CONTENT WRAPPER === -->
-    <!-- هنا الغلاف الآمن المضاف لمنع التمرير العرضي بدلا من الـ body -->
-    <div class="app-wrapper">
-        <div id="app-content" class="opacity-0 translate-y-10 transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none">
+    <div id="app-content" class="opacity-0 translate-y-10 transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none">
 
-            <!-- قاعدة البيانات -->
-            <script>
-                const menuData = [
-                    {
-                        id: "espresso", title: "القهوة الكلاسيكية", icon: "fa-solid fa-mug-hot",
-                        items: [
-                            { name: "أمريكانو 🔥❄️", price: "3,500 د.ع", badge: "الاختيار الكلاسيكي", image: "./images/americano.webp", popular: true, description: "قهوة سوداء غنية، مستخلصة بعناية." },
-                            { name: "كابوتشينو 🔥", price: "4,000 د.ع", image: "./images/cappuccino.webp", popular: true, description: "رغوة حليب كثيفة مع الإسبريسو." },
-                            { name: "فلات وايت 🔥", price: "4,000 د.ع", image: "./images/flat-white.webp" },
-                            { name: "موكا 🔥❄️", price: "4,500 د.ع", image: "./images/mocha.webp" },
-                            { name: "دبل أسبريسو 🔥", price: "3,000 د.ع", image: "./images/double-espresso.webp" },
-                            { name: "ماكياتو 🔥", price: "3,000 د.ع", image: "./images/macchiato.webp" },
-                            { name: "لونكو 🔥", price: "3,000 د.ع", image: "./images/lungo.webp" },
-                            { name: "بيكولو 🔥", price: "3,500 د.ع", image: "./images/piccolo.webp" },
-                            { name: "كورتادو 🔥", price: "3,500 د.ع", image: "./images/cortado.webp" },
-                            { name: "كراميل مكياتو 🔥❄️", price: "4,500 د.ع", image: "./images/caramel-macchiato.webp" },
-                            { name: "أفكاتو 🔥", price: "3,500 د.ع", image: "./images/affogato.webp" },
-                            { name: "قهوة تركية 🔥", price: "2,500 د.ع", image: "./images/turkish-coffee.webp" }
-                        ]
-                    },
-                    {
-                        id: "latte", title: "لاتيه", icon: "fa-solid fa-mug-saucer",
-                        items: [
-                            { name: "سبانش لاتيه 🔥❄️", price: "4,500 د.ع", badge: "الأكثر مبيعاً", image: "./images/spanish-latte.webp", popular: true },
-                            { name: "بستاشيو لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/pistachio-latte.webp", popular: true },
-                            { name: "فانيلا لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/vanilla-latte.webp" },
-                            { name: "بندق لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/hazelnut-latte.webp" },
-                            { name: "لوتس لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/lotus-latte.webp" },
-                            { name: "هلو كيتي لاتيه 🔥❄️", price: "4,500 د.ع", badge: "جديد", image: "./images/hello-kitty-latte.webp" }
-                        ]
-                    },
-                    {
-                        id: "drip_coffee", title: "القهوة المقطرة", icon: "fa-solid fa-filter",
-                        items: [
-                            { name: "سايفون", price: "اسأل الباريستا", description: "تحضير فريد بطريقة الغمر الكامل.", image: "./images/syphon.webp" },
-                            { name: "V60", price: "اسأل الباريستا", description: "تقطير يدوي لنكهة نقية ومتوازنة.", image: "./images/v60.webp" },
-                            { name: "كولد برو", price: "اسأل الباريستا", description: "قهوة باردة مخمرة ببطء لنكهة غنية.", image: "./images/cold-brew.webp" },
-                            { name: "ايروبرس", price: "اسأل الباريستا", description: "قهوة غنية وسريعة التحضير.", image: "./images/aeropress.webp" },
-                            { name: "كيمكس", price: "اسأل الباريستا", description: "تقطير بطيء لقهوة صافية وخفيفة.", image: "./images/chemex.webp" }
-                        ]
-                    },
-                    {
-                        id: "add_ons", title: "الإضافات", icon: "fa-solid fa-plus", type: "list",
-                        items: [
-                            { name: "إضافة حجم كبير", price: "+ 1,000 د.ع" },
-                            { name: "إضافة شوت", price: "+ 750 د.ع" },
-                            { name: "إضافة سيرب", price: "+ 500 د.ع" },
-                            { name: "حليب جوز هند", price: "+ 1,500 د.ع" },
-                            { name: "خالي اللاكتوز", price: "+ 1,250 د.ع" }
-                        ]
-                    },
-                    {
-                        id: "ice_tea", title: "آيس تي", icon: "fa-solid fa-glass-water",
-                        items: [
-                            { name: "آيس تي مكس بيري", price: "4,000 د.ع", badge: "منعش جداً", popular: true, image: "./images/mixed-berry-iced-tea.webp" },
-                            { name: "آيس تي ستروبري", price: "4,000 د.ع", image: "./images/strawberry-iced-tea.webp" },
-                            { name: "آيس تي ليمون بيج", price: "4,000 د.ع", image: "./images/lemon-iced-tea.webp" }
-                        ]
-                    },
-                    {
-                        id: "spark", title: "سبارك", icon: "fa-solid fa-wand-magic-sparkles",
-                        items: [
-                            { name: "ليمون سبارك", price: "4,000 د.ع", image: "./images/lemon-spark.webp" },
-                            { name: "ستروبري سبارك", price: "4,000 د.ع", image: "./images/strawberry-spark.webp" },
-                            { name: "بلو گم سبارك", price: "4,000 د.ع", image: "./images/blue-cum-spark.webp" }
-                        ]
-                    },
-                    {
-                        id: "smoothie", title: "سموذي", icon: "fa-solid fa-glass-water-droplet",
-                        items: [
-                            { name: "سموذي ستروبري بنانا", price: "5,000 د.ع", image: "./images/strawberry-banana-smoothie.webp" },
-                            { name: "سموذي خوخ", price: "5,000 د.ع", image: "./images/peach-smoothie.webp" },
-                            { name: "سموذي مانكو باشن", price: "5,000 د.ع", image: "./images/mango-passion-smoothie.webp" }
-                        ]
-                    },
-                    {
-                        id: "milkshake", title: "ميلك شيك", icon: "fa-solid fa-ice-cream",
-                        items: [
-                            { name: "ميلك شيك دارك چوكلت", price: "5,000 د.ع", image: "./images/dark-chocolate-milkshake.webp" },
-                            { name: "ميلك شيك بستاشيو", price: "5,000 د.ع", image: "./images/pistachio-milkshake.webp" },
-                            { name: "أوريو ميلك شيك", price: "5,000 د.ع", image: "./images/oreo-milkshake.webp" },
-                            { name: "ستروبري ميلك شيك", price: "5,000 د.ع", image: "./images/strawberry-milkshake.webp" },
-                            { name: "لوتس ميلك شيك", price: "5,000 د.ع", image: "./images/lotus-milkshake.webp" },
-                            { name: "دوقا ميلك شيك", price: "5,000 د.ع", badge: "جديد", image: "./images/duga-milkshake.webp" }
-                        ]
-                    },
-                    {
-                        id: "frappuccino", title: "فرابيتشينو", icon: "fa-solid fa-snowflake",
-                        items: [
-                            { name: "جوكليت فراب", price: "5,000 د.ع", image: "./images/chocolate-frappe.webp" },
-                            { name: "لوتس فراب", price: "5,000 د.ع", image: "./images/lotus-frappe.webp" },
-                            { name: "بستاشيو فراب", price: "5,000 د.ع", image: "./images/pistachio-frappe.webp" },
-                            { name: "كراميل فراب", price: "5,000 د.ع", image: "./images/caramel-frappe.webp" }
-                        ]
-                    },
-                    {
-                        id: "matcha_sip", title: "ماتشا سيب", icon: "fa-solid fa-leaf",
-                        items: [
-                            { name: "ريد ماتشا", price: "5,000 د.ع", image: "./images/red-matcha.webp" },
-                            { name: "بلو ماتشا", price: "5,000 د.ع", image: "./images/blue-matcha.webp" },
-                            { name: "بربل ماتشا", price: "5,000 د.ع", image: "./images/purple-matcha.webp" }
-                        ]
-                    },
-                    {
-                        id: "desserts", title: "الحلويات والمخبوزات", icon: "fa-solid fa-cookie-bite",
-                        items: [
-                            { name: "سان سباستيان", price: "4,000 د.ع", badge: "تذوب بالفم", image: "./images/san-sebastian.webp", popular: true },
-                            { name: "سينامون رول", price: "4,000 د.ع", image: "./images/cinnamon-roll.webp" },
-                            { name: "براونيز", price: "4,000 د.ع", image: "./images/brownies.webp" },
-                            { name: "دونات سادة", price: "2,500 د.ع", image: "./images/plain-donut.webp" },
-                            { name: "دونات محشية", price: "3,500 د.ع", description: "لوتس - جوكلت - بستاشيو", image: "./images/stuffed-donut.webp" },
-                            { name: "فطيرة لحم", price: "2,000 د.ع", image: "./images/meat-pie.webp" },
-                            { name: "فطيرة جبن", price: "2,500 د.ع", image: "./images/cheese-pie.webp" },
-                            { name: "كرة لوتس قطعة واحدة", price: "750 د.ع", image: "./images/lotus-ball-single.webp" },
-                            { name: "كرة لوتس ثلاث قطع", price: "2,000 د.ع", image: "./images/lotus-ball-three.webp" }
-                        ]
-                    },
-                    {
-                        id: "diet", title: "دايت وفيتنس", icon: "fa-solid fa-heart-pulse",
-                        items: [
-                            { name: "بروتين سموذي", price: "6,000 د.ع", description: "24g Protein | 200 Calories", badge: "الأكثر طلباً 🔥", popular: true, image: "./images/protein-smoothie.webp" },
-                            { name: "برتقال فريش", price: "4,000 د.ع", image: "./images/fresh-orange-juice.webp" },
-                            { name: "ليمونادة", price: "4,000 د.ع", image: "./images/lemonade.webp" },
-                            { name: "لاتيه فانيلا خالي السكر 🔥❄️", price: "5,000 د.ع", image: "./images/vanilla-sugar-free-latte.webp" },
-                            { name: "لاتيه بندق خالي السكر 🔥❄️", price: "5,000 د.ع", image: "./images/hazelnut-sugar-free-latte.webp" },
-                            { name: "لاتيه كراميل خالي السكر 🔥❄️", price: "5,000 د.ع", image: "./images/caramel-sugar-free-latte.webp" }
-                        ]
-                    },
-                    {
-                        id: "cat_room", title: "غرفة القطط", icon: "fa-solid fa-cat",
-                        items: [
-                            { name: "تذكرة دخول الغرفة", price: "2,000 د.ع", description: "تذكرة دخول لشخص واحد." },
-                            { name: "تريت مكافآت للقطط", price: "2,000 د.ع", description: "طعام خاص ومسموح للقطط داخل الغرفة.", image: "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?auto=format&fit=crop&w=600&q=80" }
-                        ],
-                        rules: [
-                            "الرجاء تعقيم اليدين قبل الدخول حفاظاً على سلامة القطط.",
-                            "ممنوع إطعام القطط من طعامك الخاص.",
-                            "ممنوع إيقاظ القطط النائمة أو رفعها.",
-                            "يمنع استخدام الفلاش عند التقاط الصور.",
-                            "يمنع دخول الأطفال أقل من 10 سنوات.",
-                            "المخالفة تعرضك لغرامة (100 ألف دينار) أو الاستبعاد."
-                        ]
-                    },
-                    {
-                        id: "study_room", title: "غرفة الدراسة", icon: "fa-solid fa-book-open-reader", items: []
-                    }
-                ];
-            </script>
+        <!-- قاعدة البيانات -->
+        <script>
+            const menuData = [
+                {
+                    id: "espresso",
+                    title: "القهوة الكلاسيكية",
+                    icon: "fa-solid fa-mug-hot",
+                    defaultImage: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=600&q=80",
+                    items: [
+                        { name: "أمريكانو 🔥❄️", price: "3,500 د.ع", badge: "الاختيار الكلاسيكي", image: "./images/americano.webp", popular: true, description: "قهوة سوداء غنية، مستخلصة بعناية." },
+                        { name: "كابوتشينو 🔥", price: "4,000 د.ع", image: "./images/cappuccino.webp", popular: true, description: "رغوة حليب كثيفة مع الإسبريسو." },
+                        { name: "فلات وايت 🔥", price: "4,000 د.ع", image: "./images/flat-white.webp" },
+                        { name: "موكا 🔥❄️", price: "4,500 د.ع", image: "./images/mocha.webp" },
+                        { name: "دبل أسبريسو 🔥", price: "3,000 د.ع", image: "./images/double-espresso.webp" },
+                        { name: "ماكياتو 🔥", price: "3,000 د.ع", image: "./images/macchiato.webp" },
+                        { name: "لونكو 🔥", price: "3,000 د.ع", image: "./images/lungo.webp" },
+                        { name: "بيكولو 🔥", price: "3,500 د.ع", image: "./images/piccolo.webp" },
+                        { name: "كورتادو 🔥", price: "3,500 د.ع", image: "./images/cortado.webp" },
+                        { name: "كراميل مكياتو 🔥❄️", price: "4,500 د.ع", image: "./images/caramel-macchiato.webp" },
+                        { name: "أفكاتو 🔥", price: "3,500 د.ع", image: "./images/affogato.webp" },
+                        { name: "قهوة تركية 🔥", price: "2,500 د.ع", image: "./images/turkish-coffee.webp" }
+                    ]
+                },
+                {
+                    id: "latte",
+                    title: "لاتيه",
+                    icon: "fa-solid fa-mug-saucer",
+                    defaultImage: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=600&q=80",
+                    items: [
+                        { name: "سبانش لاتيه 🔥❄️", price: "4,500 د.ع", badge: "الأكثر مبيعاً", image: "./images/spanish-latte.webp", popular: true },
+                        { name: "بستاشيو لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/pistachio-latte.webp", popular: true },
+                        { name: "فانيلا لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/vanilla-latte.webp" },
+                        { name: "بندق لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/hazelnut-latte.webp" },
+                        { name: "لوتس لاتيه 🔥❄️", price: "4,500 د.ع", image: "./images/lotus-latte.webp" },
+                        { name: "هلو كيتي لاتيه 🔥❄️", price: "4,500 د.ع", badge: "جديد", image: "./images/hello-kitty-latte.webp" }
+                    ]
+                },
+                {
+                    id: "drip_coffee",
+                    title: "القهوة المقطرة",
+                    icon: "fa-solid fa-filter",
+                    defaultImage: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=600&q=80",
+                    items: [
+                        { name: "سايفون", price: "اسأل الباريستا", description: "تحضير فريد بطريقة الغمر الكامل.", image: "./images/syphon.webp" },
+                        { name: "V60", price: "اسأل الباريستا", description: "تقطير يدوي لنكهة نقية ومتوازنة.", image: "./images/v60.webp" },
+                        { name: "كولد برو", price: "اسأل الباريستا", description: "قهوة باردة مخمرة ببطء لنكهة غنية.", image: "./images/cold-brew.webp" },
+                        { name: "ايروبرس", price: "اسأل الباريستا", description: "قهوة غنية وسريعة التحضير.", image: "./images/aeropress.webp" },
+                        { name: "كيمكس", price: "اسأل الباريستا", description: "تقطير بطيء لقهوة صافية وخفيفة.", image: "./images/chemex.webp" }
+                    ]
+                },
+                {
+                    id: "add_ons",
+                    title: "الإضافات",
+                    icon: "fa-solid fa-plus",
+                    type: "list",
+                    items: [
+                        { name: "إضافة حجم كبير", price: "+ 1,000 د.ع" },
+                        { name: "إضافة شوت", price: "+ 750 د.ع" },
+                        { name: "إضافة سيرب", price: "+ 500 د.ع" },
+                        { name: "حليب جوز هند", price: "+ 1,500 د.ع" },
+                        { name: "خالي اللاكتوز", price: "+ 1,250 د.ع" }
+                    ]
+                },
+                {
+                    id: "ice_tea",
+                    title: "آيس تي",
+                    icon: "fa-solid fa-glass-water",
+                    defaultImage: "https://images.unsplash.com/photo-1499961142813-edce3e550c62?auto=format&fit=crop&w=600&q=80",
+                    items: [
+                        { name: "آيس تي مكس بيري", price: "4,000 د.ع", badge: "منعش جداً", popular: true, image: "./images/mixed-berry-iced-tea.webp" },
+                        { name: "آيس تي ستروبري", price: "4,000 د.ع", image: "./images/strawberry-iced-tea.webp" },
+                        { name: "آيس تي ليمون بيج", price: "4,000 د.ع", image: "./images/lemon-iced-tea.webp" }
+                    ]
+                },
+                {
+                    id: "spark",
+                    title: "سبارك",
+                    icon: "fa-solid fa-wand-magic-sparkles",
+                    defaultImage: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80",
+                    items: [
+                        { name: "ليمون سبارك", price: "4,000 د.ع", image: "./images/lemon-spark.webp" },
+                        { name: "ستروبري سبارك", price: "4,000 د.ع", image: "./images/strawberry-spark.webp" },
+                        { name: "بلو گم سبارك", price: "4,000 د.ع", image: "./images/blue-cum-spark.webp" }
+                    ]
+                },
+                {
+                    id: "smoothie",
+                    title: "سموذي",
+                    icon: "fa-solid fa-glass-water-droplet",
+                    defaultImage: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80",
+                    items: [
+                        { name: "سموذي ستروبري بنانا", price: "5,000 د.ع", image: "./images/strawberry-banana-smoothie.webp" },
+                        { name: "سموذي خوخ", price: "5,000 د.ع", image: "./images/peach-smoothie.webp" },
+                        { name: "سموذي مانكو باشن", price: "5,000 د.ع", image: "./images/mango-passion-smoothie.webp" }
+                    ]
+                },
+                {
+                    id: "milkshake",
+                    title: "ميلك شيك",
+                    icon: "fa-solid fa-ice-cream",
+                    defaultImage: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=80",
+                    items: [
+                        { name: "ميلك شيك دارك چوكلت", price: "5,000 د.ع", image: "./images/dark-chocolate-milkshake.webp" },
+                        { name: "ميلك شيك بستاشيو", price: "5,000 د.ع", image: "./images/pistachio-milkshake.webp" },
+                        { name: "أوريو ميلك شيك", price: "5,000 د.ع", image: "./images/oreo-milkshake.webp" },
+                        { name: "ستروبري ميلك شيك", price: "5,000 د.ع", image: "./images/strawberry-milkshake.webp" },
+                        { name: "لوتس ميلك شيك", price: "5,000 د.ع", image: "./images/lotus-milkshake.webp" },
+                        { name: "دوقا ميلك شيك", price: "5,000 د.ع", badge: "جديد", image: "./images/duga-milkshake.webp" }
+                    ]
+                },
+                {
+                    id: "frappuccino",
+                    title: "فرابيتشينو",
+                    icon: "fa-solid fa-snowflake",
+                    defaultImage: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=600&q=80",
+                    items: [
+                        { name: "جوكليت فراب", price: "5,000 د.ع", image: "./images/chocolate-frappe.webp" },
+                        { name: "لوتس فراب", price: "5,000 د.ع", image: "./images/lotus-frappe.webp" },
+                        { name: "بستاشيو فراب", price: "5,000 د.ع", image: "./images/pistachio-frappe.webp" },
+                        { name: "كراميل فراب", price: "5,000 د.ع", image: "./images/caramel-frappe.webp" }
+                    ]
+                },
+                {
+                    id: "matcha_sip",
+                    title: "ماتشا سيب",
+                    icon: "fa-solid fa-leaf",
+                    defaultImage: "https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?auto=format&fit=crop&w=600&q=80",
+                    items: [
+                        { name: "ريد ماتشا", price: "5,000 د.ع", image: "./images/red-matcha.webp" },
+                        { name: "بلو ماتشا", price: "5,000 د.ع", image: "./images/blue-matcha.webp" },
+                        { name: "بربل ماتشا", price: "5,000 د.ع", image: "./images/purple-matcha.webp" }
+                    ]
+                },
+                {
+                    id: "desserts",
+                    title: "الحلويات والمخبوزات",
+                    icon: "fa-solid fa-cookie-bite",
+                    defaultImage: "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=600&q=80",
+                    items: [
+                        { name: "سان سباستيان", price: "4,000 د.ع", badge: "تذوب بالفم", image: "./images/san-sebastian.webp", popular: true },
+                        { name: "سينامون رول", price: "4,000 د.ع", image: "./images/cinnamon-roll.webp" },
+                        { name: "براونيز", price: "4,000 د.ع", image: "./images/brownies.webp" },
+                        { name: "دونات سادة", price: "2,500 د.ع", image: "./images/plain-donut.webp" },
+                        { name: "دونات محشية", price: "3,500 د.ع", description: "لوتس - جوكلت - بستاشيو", image: "./images/stuffed-donut.webp" },
+                        { name: "فطيرة لحم", price: "2,000 د.ع", image: "./images/meat-pie.webp" },
+                        { name: "فطيرة جبن", price: "2,500 د.ع", image: "./images/cheese-pie.webp" },
+                        { name: "كرة لوتس قطعة واحدة", price: "750 د.ع", image: "./images/lotus-ball-single.webp" },
+                        { name: "كرة لوتس ثلاث قطع", price: "2,000 د.ع", image: "./images/lotus-ball-three.webp" }
+                    ]
+                },
+                {
+                    id: "diet",
+                    title: "دايت وفيتنس",
+                    icon: "fa-solid fa-heart-pulse",
+                    defaultImage: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=600&q=80",
+                    items: [
+                        { name: "بروتين سموذي", price: "6,000 د.ع", description: "24g Protein | 200 Calories", badge: "الأكثر طلباً 🔥", popular: true, image: "./images/protein-smoothie.webp" },
+                        { name: "برتقال فريش", price: "4,000 د.ع", image: "./images/fresh-orange-juice.webp" },
+                        { name: "ليمونادة", price: "4,000 د.ع", image: "./images/lemonade.webp" },
+                        { name: "لاتيه فانيلا خالي السكر 🔥❄️", price: "5,000 د.ع", image: "./images/vanilla-sugar-free-latte.webp" },
+                        { name: "لاتيه بندق خالي السكر 🔥❄️", price: "5,000 د.ع", image: "./images/hazelnut-sugar-free-latte.webp" },
+                        { name: "لاتيه كراميل خالي السكر 🔥❄️", price: "5,000 د.ع", image: "./images/caramel-sugar-free-latte.webp" }
+                    ]
+                },
+                {
+                    id: "cat_room",
+                    title: "غرفة القطط",
+                    icon: "fa-solid fa-cat",
+                    defaultImage: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=600&q=80",
+                    items: [
+                        { name: "تذكرة دخول الغرفة", price: "2,000 د.ع", description: "تذكرة دخول لشخص واحد." },
+                        { name: "تريت مكافآت للقطط", price: "2,000 د.ع", description: "طعام خاص ومسموح للقطط داخل الغرفة.", image: "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?auto=format&fit=crop&w=600&q=80" }
+                    ],
+                    rules: [
+                        "الرجاء تعقيم اليدين قبل الدخول حفاظاً على سلامة القطط.",
+                        "ممنوع إطعام القطط من طعامك الخاص.",
+                        "ممنوع إيقاظ القطط النائمة أو رفعها.",
+                        "يمنع استخدام الفلاش عند التقاط الصور.",
+                        "يمنع دخول الأطفال أقل من 10 سنوات.",
+                        "المخالفة تعرضك لغرامة (100 ألف دينار) أو الاستبعاد."
+                    ]
+                },
+                {
+                    id: "study_room",
+                    title: "غرفة الدراسة",
+                    icon: "fa-solid fa-book-open-reader",
+                    defaultImage: "https://images.unsplash.com/photo-1497032205947-228ae57ed55b?auto=format&fit=crop&w=600&q=80",
+                    items: []
+                }
+            ];
+        </script>
 
-            <!-- شريط الإعلانات العائم -->
-            <div class="bg-bunni-espresso dark:bg-bunni-gold text-bunni-gold dark:text-bunni-espresso text-xs py-2 px-4 text-center font-display font-bold relative z-40 transition-colors">
-                <div class="marquee-container">
-                    <div class="marquee-content flex gap-8">
-                        <span><i class="fa-solid fa-star mx-1"></i> أول مقهى قطط في بابل</span>
-                        <span><i class="fa-solid fa-cat mx-1"></i> استمتع بقهوتك مع القطط اللطيفة</span>
-                        <span><i class="fa-solid fa-laptop mx-1"></i> خصم 20% لاشتراكات الدراسة الذهبية</span>
-                        <span><i class="fa-solid fa-mug-hot mx-1"></i> تذوق السبانش لاتيه المميز لدينا</span>
+        <!-- شريط الإعلانات العائم -->
+        <div class="bg-bunni-espresso dark:bg-bunni-gold text-bunni-gold dark:text-bunni-espresso text-xs py-2 px-4 text-center font-display font-bold relative z-40 transition-colors">
+            <div class="marquee-container">
+                <div class="marquee-content flex gap-8">
+                    <span><i class="fa-solid fa-star mx-1"></i> أول مقهى قطط في بابل</span>
+                    <span><i class="fa-solid fa-cat mx-1"></i> استمتع بقهوتك مع القطط اللطيفة</span>
+                    <span><i class="fa-solid fa-laptop mx-1"></i> خصم 20% لاشتراكات الدراسة الذهبية</span>
+                    <span><i class="fa-solid fa-mug-hot mx-1"></i> تذوق السبانش لاتيه المميز لدينا</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- زر الوضع الليلي -->
+        <button onclick="toggleTheme()" class="fixed top-12 left-4 z-50 w-12 h-12 bg-white dark:bg-bunni-darkCard rounded-full shadow-lg border border-bunni-surface dark:border-bunni-darkBorder flex items-center justify-center transition-transform active:scale-90">
+            <i id="themeIcon" class="fa-solid fa-moon text-xl text-bunni-espresso dark:text-bunni-gold"></i>
+        </button>
+
+        <!-- الترويسة الفاخرة: تم تطبيق الزووم والإزاحة الذكية هنا לـ scale-[1.75] translate-y-1.5 لاقتصاص الحافة السفلية بالكامل -->
+        <header class="relative bg-bunni-surface dark:bg-bunni-darkSurface pt-10 pb-8 rounded-b-[40px] shadow-sm transition-colors">
+            <div class="relative z-10 w-full max-w-2xl mx-auto px-6 text-center">
+                
+                <div class="w-28 h-28 mx-auto mb-4 bg-transparent rounded-full flex items-center justify-center shadow-lg border-0 outline-none ring-0 overflow-hidden select-none pointer-events-none">
+                    <!-- حل هندسي دقيق لمشكلة الحافة الفارغة بالأسفل -->
+                    <img src="./images/splash-logo-final.png" onerror="this.src='https://i.postimg.cc/vDZ1S2X8/logo.jpg'" alt="" class="w-full h-full object-cover transform scale-[1.75] translate-y-1.5 select-none pointer-events-none" draggable="false" oncontextmenu="return false;">
+                </div>
+                
+                <h1 class="font-display text-4xl leading-tight font-bold text-bunni-espresso dark:text-white mb-2 drop-shadow-sm">بُنّي كافيه</h1>
+                <p class="font-sans text-bunni-mocha/80 dark:text-bunni-gold/80 text-[11px] font-black tracking-[0.3em] uppercase mb-8">Bunni Cat & Coffee</p>
+                
+                <div class="bg-white dark:bg-bunni-darkCard rounded-full shadow-premium flex items-center p-2 px-4 border border-white dark:border-bunni-darkBorder max-w-md mx-auto relative z-20 transition-colors">
+                    <div class="text-bunni-gold dark:text-bunni-gold ml-2">
+                        <i class="fa-solid fa-search text-lg"></i>
                     </div>
+                    <input type="text" id="searchInput" placeholder="ابحث عن مشروبك المفضل..." 
+                        class="font-display w-full bg-transparent border-none outline-none text-bunni-espresso dark:text-white placeholder-bunni-latte dark:placeholder-gray-500 font-bold py-2 text-sm"
+                        onkeyup="searchMenu()">
+                </div>
+            </div>
+        </header>
+
+        <!-- شريط التصنيفات -->
+        <nav class="sticky top-0 z-40 glass-header mt-0 pt-4 pb-3 transition-colors">
+            <div class="w-full max-w-4xl mx-auto overflow-hidden">
+                <ul id="categoryTabs" class="flex overflow-x-auto hide-scrollbar gap-3 px-4 items-center w-full">
+                </ul>
+            </div>
+        </nav>
+
+        <!-- حاوية المنيو -->
+        <main class="w-full max-w-4xl mx-auto mt-6">
+            
+            <div id="bestsellersContainer" class="mb-10 hidden">
+                <div class="flex items-center justify-between mb-4 px-4">
+                    <h2 class="text-2xl font-display font-black text-bunni-espresso dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-fire text-bunni-accent"></i> الأكثر طلباً
+                    </h2>
+                </div>
+                <div class="flex overflow-x-auto hide-scrollbar gap-4 pb-4 px-4 w-full snap-x" id="bestsellersScroll">
                 </div>
             </div>
 
-            <!-- زر الوضع الليلي -->
-            <button onclick="toggleTheme()" class="fixed top-12 left-4 z-50 w-12 h-12 bg-white dark:bg-bunni-darkCard rounded-full shadow-lg border border-bunni-surface dark:border-bunni-darkBorder flex items-center justify-center transition-transform active:scale-90">
-                <i id="themeIcon" class="fa-solid fa-moon text-xl text-bunni-espresso dark:text-bunni-gold"></i>
-            </button>
-
-            <!-- الترويسة الفاخرة (هنا حل مشكلة المسافة السفلية للوغو عبر تكبير مدروس وإزاحة) -->
-            <header class="relative bg-bunni-surface dark:bg-bunni-darkSurface pt-10 pb-8 rounded-b-[40px] shadow-sm transition-colors">
-                <div class="relative z-10 w-full max-w-2xl mx-auto px-6 text-center">
-                    
-                    <div class="w-28 h-28 mx-auto mb-4 bg-transparent rounded-full flex items-center justify-center shadow-lg border-0 outline-none ring-0 overflow-hidden select-none pointer-events-none">
-                        <!-- هنا الحل: تكبير الصورة scale-[1.40] وإزاحتها للأسفل قليلاً translate-y-2 لقص الفراغ السفلي بذكاء -->
-                        <img src="./images/splash-logo-final.png" onerror="this.src='https://i.postimg.cc/vDZ1S2X8/logo.jpg'" alt="" class="w-full h-full object-cover transform scale-[1.40] translate-y-2 select-none pointer-events-none" draggable="false" oncontextmenu="return false;">
-                    </div>
-                    
-                    <h1 class="font-display text-4xl leading-tight font-bold text-bunni-espresso dark:text-white mb-2 drop-shadow-sm">بُنّي كافيه</h1>
-                    <p class="font-sans text-bunni-mocha/80 dark:text-bunni-gold/80 text-[11px] font-black tracking-[0.3em] uppercase mb-8">Bunni Cat & Coffee</p>
-                    
-                    <div class="bg-white dark:bg-bunni-darkCard rounded-full shadow-premium flex items-center p-2 px-4 border border-white dark:border-bunni-darkBorder max-w-md mx-auto relative z-20 transition-colors">
-                        <div class="text-bunni-gold dark:text-bunni-gold ml-2">
-                            <i class="fa-solid fa-search text-lg"></i>
-                        </div>
-                        <input type="text" id="searchInput" placeholder="ابحث عن مشروبك المفضل..." 
-                            class="font-display w-full bg-transparent border-none outline-none text-bunni-espresso dark:text-white placeholder-bunni-latte dark:placeholder-gray-500 font-bold py-2 text-sm"
-                            onkeyup="searchMenu()">
-                    </div>
-                </div>
-            </header>
-
-            <!-- شريط التصنيفات -->
-            <nav class="sticky top-0 z-40 glass-header mt-0 pt-4 pb-3 transition-colors">
-                <div class="w-full max-w-4xl mx-auto overflow-hidden">
-                    <ul id="categoryTabs" class="flex overflow-x-auto hide-scrollbar gap-3 px-4 items-center w-full">
-                    </ul>
-                </div>
-            </nav>
-
-            <!-- حاوية المنيو -->
-            <main class="w-full max-w-4xl mx-auto mt-6">
-                
-                <div id="bestsellersContainer" class="mb-10 hidden">
-                    <div class="flex items-center justify-between mb-4 px-4">
-                        <h2 class="text-2xl font-display font-black text-bunni-espresso dark:text-white flex items-center gap-2">
-                            <i class="fa-solid fa-fire text-bunni-accent"></i> الأكثر طلباً
-                        </h2>
-                    </div>
-                    <div class="flex overflow-x-auto hide-scrollbar gap-4 pb-4 px-4 w-full snap-x" id="bestsellersScroll">
-                    </div>
-                </div>
-
-                <div id="menuContainer" class="space-y-10 pb-6 px-4 w-full">
+            <div id="menuContainer" class="space-y-10 pb-6 px-4 w-full">
+            </div>
+            
+            <!-- قسم غرفة الدراسة -->
+            <section id="section-study_room" class="menu-category w-full px-4 mb-10">
+                <div class="flex items-center mb-5">
+                    <h2 class="text-2xl font-display font-bold text-bunni-espresso dark:text-white tracking-tight">
+                        غرفة الدراسة
+                    </h2>
+                    <div class="flex-grow border-b border-dashed border-bunni-gold/30 mr-4"></div>
                 </div>
                 
-                <!-- قسم غرفة الدراسة -->
-                <section id="section-study_room" class="menu-category w-full px-4 mb-10">
-                    <div class="flex items-center mb-5">
-                        <h2 class="text-2xl font-display font-bold text-bunni-espresso dark:text-white tracking-tight">
-                            غرفة الدراسة
-                        </h2>
-                        <div class="flex-grow border-b border-dashed border-bunni-gold/30 mr-4"></div>
-                    </div>
+                <div class="bg-bunni-surface dark:bg-bunni-darkSurface border border-bunni-gold/20 rounded-[20px] p-6 relative overflow-hidden transition-colors">
+                    <i class="fa-solid fa-graduation-cap absolute -left-6 -bottom-6 text-8xl text-bunni-gold/10 rotate-[-15deg]"></i>
                     
-                    <div class="bg-bunni-surface dark:bg-bunni-darkSurface border border-bunni-gold/20 rounded-[20px] p-6 relative overflow-hidden transition-colors">
-                        <i class="fa-solid fa-graduation-cap absolute -left-6 -bottom-6 text-8xl text-bunni-gold/10 rotate-[-15deg]"></i>
-                        
-                        <div class="relative z-10">
-                            <h4 class="font-display font-bold text-bunni-espresso dark:text-white mb-4 flex items-center text-lg">
-                                <i class="fa-solid fa-book-open-reader text-bunni-accent ml-2"></i> بيئة مثالية للتركيز والإنجاز
-                            </h4>
-                            <p class="text-sm font-sans text-bunni-mocha dark:text-gray-300 leading-relaxed font-medium mb-6">
-                                غرفة مغلقة خاصة للدراسة والعمل مجهزة لمساعدتك بالآتي:
-                            </p>
-                            <div class="grid grid-cols-1 gap-y-3 text-[13px] font-sans font-medium text-bunni-mocha dark:text-gray-300">
-                                <div class="flex items-center bg-white/60 dark:bg-black/20 p-3 rounded-xl border border-white dark:border-transparent shadow-sm">
-                                    <i class="fa-solid fa-print text-bunni-gold ml-3 text-base"></i>
-                                    <span class="leading-snug">طابعة ملونة وورق وقرطاسية.</span>
-                                </div>
-                                <div class="flex items-center bg-white/60 dark:bg-black/20 p-3 rounded-xl border border-white dark:border-transparent shadow-sm">
-                                    <i class="fa-solid fa-book text-bunni-gold ml-3 text-base"></i>
-                                    <span class="leading-snug">مكتبة مع مختلف أنواع الكتب بعناوين متنوعة للقراءة أو البيع.</span>
-                                </div>
-                                <div class="flex items-center bg-white/60 dark:bg-black/20 p-3 rounded-xl border border-white dark:border-transparent shadow-sm">
-                                    <i class="fa-solid fa-temperature-low text-bunni-gold ml-3 text-base"></i>
-                                    <span class="leading-snug">مايكرويف وثلاجة حتى يبقى أكلكم ومشروباتكم فريش.</span>
-                                </div>
-                                <div class="flex items-center bg-white/60 dark:bg-black/20 p-3 rounded-xl border border-white dark:border-transparent shadow-sm">
-                                    <i class="fa-solid fa-glass-water text-bunni-gold ml-3 text-base"></i>
-                                    <span class="leading-snug font-bold text-bunni-accent">ماء شرب مجاني طوال فترة تواجدك.</span>
-                                </div>
+                    <div class="relative z-10">
+                        <h4 class="font-display font-bold text-bunni-espresso dark:text-white mb-4 flex items-center text-lg">
+                            <i class="fa-solid fa-book-open-reader text-bunni-accent ml-2"></i> بيئة مثالية للتركيز والإنجاز
+                        </h4>
+                        <p class="text-sm font-sans text-bunni-mocha dark:text-gray-300 leading-relaxed font-medium mb-6">
+                            غرفة مغلقة خاصة للدراسة والعمل مجهزة لمساعدتك بالآتي:
+                        </p>
+                        <div class="grid grid-cols-1 gap-y-3 text-[13px] font-sans font-medium text-bunni-mocha dark:text-gray-300">
+                            <div class="flex items-center bg-white/60 dark:bg-black/20 p-3 rounded-xl border border-white dark:border-transparent shadow-sm">
+                                <i class="fa-solid fa-print text-bunni-gold ml-3 text-base"></i>
+                                <span class="leading-snug">طابعة ملونة وورق وقرطاسية.</span>
                             </div>
+                            <div class="flex items-center bg-white/60 dark:bg-black/20 p-3 rounded-xl border border-white dark:border-transparent shadow-sm">
+                                <i class="fa-solid fa-book text-bunni-gold ml-3 text-base"></i>
+                                <span class="leading-snug">مكتبة مع مختلف أنواع الكتب بعناوين متنوعة للقراءة أو البيع.</span>
+                            </div>
+                            <div class="flex items-center bg-white/60 dark:bg-black/20 p-3 rounded-xl border border-white dark:border-transparent shadow-sm">
+                                <i class="fa-solid fa-temperature-low text-bunni-gold ml-3 text-base"></i>
+                                <span class="leading-snug">مايكرويف وثلاجة حتى يبقى أكلكم ومشروباتكم فريش.</span>
+                            </div>
+                            <div class="flex items-center bg-white/60 dark:bg-black/20 p-3 rounded-xl border border-white dark:border-transparent shadow-sm">
+                                <i class="fa-solid fa-glass-water text-bunni-gold ml-3 text-base"></i>
+                                <span class="leading-snug font-bold text-bunni-accent">ماء شرب مجاني طوال فترة تواجدك.</span>
+                            </div>
+                        </div>
 
-                            <h4 class="font-display font-bold text-bunni-espresso dark:text-white mt-8 mb-4 flex items-center text-lg">
-                                <i class="fa-solid fa-star text-bunni-accent ml-2"></i> باقات الاشتراك
-                            </h4>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="bg-white/80 dark:bg-bunni-darkCard/80 p-4 rounded-2xl border-2 border-bunni-gold/30 relative overflow-hidden transition-all hover:border-bunni-gold">
-                                    <div class="absolute top-0 left-0 bg-bunni-gold text-white text-xs font-bold px-3 py-1 rounded-br-lg font-sans">مرن</div>
-                                    <h5 class="font-display font-bold text-bunni-espresso dark:text-white text-lg mb-1">الاشتراك اليومي</h5>
-                                    <span class="font-display font-black text-bunni-accent text-xl mt-2 block">2,500 د.ع</span>
-                                </div>
-                                <div class="bg-white/80 dark:bg-bunni-darkCard/80 p-4 rounded-2xl border-2 border-bunni-gold/30 relative overflow-hidden transition-all hover:border-bunni-gold">
-                                    <div class="absolute top-0 left-0 bg-bunni-gold text-white text-xs font-bold px-3 py-1 rounded-br-lg font-sans">توفير</div>
-                                    <h5 class="font-display font-bold text-bunni-espresso dark:text-white text-lg mb-1">الاشتراك الأسبوعي</h5>
-                                    <span class="font-display font-black text-bunni-accent text-xl mt-2 block">10,000 د.ع</span>
-                                </div>
-                                <div class="bg-white/80 dark:bg-bunni-darkCard/80 p-4 rounded-2xl border-2 border-bunni-accent/60 relative overflow-hidden shadow-sm transition-all hover:border-bunni-accent">
-                                    <div class="absolute top-0 left-0 bg-bunni-accent text-white text-xs font-bold px-3 py-1 rounded-br-lg font-sans">الأكثر قيمة</div>
-                                    <h5 class="font-display font-bold text-bunni-espresso dark:text-white text-lg mb-2">الاشتراك الشهري</h5>
-                                    <p class="text-xs font-sans text-bunni-mocha dark:text-gray-300 mb-3">الاشتراك الشهري يشمل تخفيض <span class="font-bold text-bunni-accent">10%</span> على كافة المشروبات.</p>
-                                    <span class="font-display font-black text-bunni-accent text-xl">35,000 د.ع</span>
-                                </div>
-                                <div class="bg-gradient-to-br from-bunni-gold/20 to-bunni-accent/20 dark:from-bunni-gold/10 dark:to-bunni-accent/10 p-4 rounded-2xl border-2 border-bunni-accent relative overflow-hidden shadow-md">
-                                    <div class="absolute top-0 left-0 bg-bunni-accent text-white text-xs font-bold px-3 py-1 rounded-br-lg font-sans"><i class="fa-solid fa-crown ml-1"></i> VIP</div>
-                                    <h5 class="font-display font-bold text-bunni-espresso dark:text-white text-lg mb-2">الاشتراك الذهبي</h5>
-                                    <p class="text-xs font-sans text-bunni-mocha dark:text-gray-300 mb-3">اشتراك شهري لغرفة الدراسة وغرفة القطط مع تخفيض <span class="font-bold text-bunni-accent">20%</span> على كافة المشروبات.</p>
-                                    <span class="font-display font-black text-bunni-accent text-xl">65,000 د.ع</span>
-                                </div>
+                        <h4 class="font-display font-bold text-bunni-espresso dark:text-white mt-8 mb-4 flex items-center text-lg">
+                            <i class="fa-solid fa-star text-bunni-accent ml-2"></i> باقات الاشتراك
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white/80 dark:bg-bunni-darkCard/80 p-4 rounded-2xl border-2 border-bunni-gold/30 relative overflow-hidden transition-all hover:border-bunni-gold">
+                                <div class="absolute top-0 left-0 bg-bunni-gold text-white text-xs font-bold px-3 py-1 rounded-br-lg font-sans">مرن</div>
+                                <h5 class="font-display font-bold text-bunni-espresso dark:text-white text-lg mb-1">الاشتراك اليومي</h5>
+                                <span class="font-display font-black text-bunni-accent text-xl mt-2 block">2,500 د.ع</span>
+                            </div>
+                            <div class="bg-white/80 dark:bg-bunni-darkCard/80 p-4 rounded-2xl border-2 border-bunni-gold/30 relative overflow-hidden transition-all hover:border-bunni-gold">
+                                <div class="absolute top-0 left-0 bg-bunni-gold text-white text-xs font-bold px-3 py-1 rounded-br-lg font-sans">توفير</div>
+                                <h5 class="font-display font-bold text-bunni-espresso dark:text-white text-lg mb-1">الاشتراك الأسبوعي</h5>
+                                <span class="font-display font-black text-bunni-accent text-xl mt-2 block">10,000 د.ع</span>
+                            </div>
+                            <div class="bg-white/80 dark:bg-bunni-darkCard/80 p-4 rounded-2xl border-2 border-bunni-accent/60 relative overflow-hidden shadow-sm transition-all hover:border-bunni-accent">
+                                <div class="absolute top-0 left-0 bg-bunni-accent text-white text-xs font-bold px-3 py-1 rounded-br-lg font-sans">الأكثر قيمة</div>
+                                <h5 class="font-display font-bold text-bunni-espresso dark:text-white text-lg mb-2">الاشتراك الشهري</h5>
+                                <p class="text-xs font-sans text-bunni-mocha dark:text-gray-300 mb-3">الاشتراك الشهري يشمل تخفيض <span class="font-bold text-bunni-accent">10%</span> على كافة المشروبات.</p>
+                                <span class="font-display font-black text-bunni-accent text-xl">35,000 د.ع</span>
+                            </div>
+                            <div class="bg-gradient-to-br from-bunni-gold/20 to-bunni-accent/20 dark:from-bunni-gold/10 dark:to-bunni-accent/10 p-4 rounded-2xl border-2 border-bunni-accent relative overflow-hidden shadow-md">
+                                <div class="absolute top-0 left-0 bg-bunni-accent text-white text-xs font-bold px-3 py-1 rounded-br-lg font-sans"><i class="fa-solid fa-crown ml-1"></i> VIP</div>
+                                <h5 class="font-display font-bold text-bunni-espresso dark:text-white text-lg mb-2">الاشتراك الذهبي</h5>
+                                <p class="text-xs font-sans text-bunni-mocha dark:text-gray-300 mb-3">اشتراك شهري لغرفة الدراسة وغرفة القطط مع تخفيض <span class="font-bold text-bunni-accent">20%</span> على كافة المشروبات.</p>
+                                <span class="font-display font-black text-bunni-accent text-xl">65,000 د.ع</span>
                             </div>
                         </div>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <!-- قسم تواصل معنا والموقع -->
-                <section class="mt-12 mb-8 px-4 w-full relative z-10">
-                    <div class="bg-white dark:bg-bunni-darkCard rounded-[32px] p-6 shadow-premium border border-bunni-surface dark:border-bunni-darkBorder relative overflow-hidden transition-colors">
+            <!-- قسم تواصل معنا والموقع -->
+            <section class="mt-12 mb-8 px-4 w-full relative z-10">
+                <div class="bg-white dark:bg-bunni-darkCard rounded-[32px] p-6 shadow-premium border border-bunni-surface dark:border-bunni-darkBorder relative overflow-hidden transition-colors">
 
-                        <div class="relative z-10 text-center mb-8">
-                            <span class="font-sans bg-bunni-surface dark:bg-bunni-darkSurface text-bunni-espresso dark:text-white font-bold text-xs px-4 py-1.5 rounded-full border border-bunni-gold/30 shadow-sm transition-colors">
-                                أول مقهى قطط في بابل ☕🐈
-                            </span>
-                            <h2 class="text-2xl font-display font-bold text-bunni-espresso dark:text-white mt-4">موقعنا وتواصل معنا</h2>
-                        </div>
+                    <div class="relative z-10 text-center mb-8">
+                        <span class="font-sans bg-bunni-surface dark:bg-bunni-darkSurface text-bunni-espresso dark:text-white font-bold text-xs px-4 py-1.5 rounded-full border border-bunni-gold/30 shadow-sm transition-colors">
+                            أول مقهى قطط في بابل ☕🐈
+                        </span>
+                        <h2 class="text-2xl font-display font-bold text-bunni-espresso dark:text-white mt-4">موقعنا وتواصل معنا</h2>
+                    </div>
 
-                        <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="flex items-center gap-4 bg-bunni-surface/50 dark:bg-bunni-darkSurface p-4 rounded-2xl border border-bunni-surface dark:border-bunni-darkBorder transition-colors">
-                                <div class="w-12 h-12 shrink-0 bg-white dark:bg-bunni-darkCard rounded-full flex items-center justify-center text-bunni-gold shadow-sm">
-                                    <i class="fa-regular fa-clock text-xl"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-sans text-bunni-latte dark:text-gray-400 font-bold mb-0.5">أوقات العمل</p>
-                                    <p class="text-[15px] font-display font-bold text-bunni-espresso dark:text-white" dir="ltr">07:00 AM - 11:59 PM</p>
-                                    <p class="text-[10px] font-sans text-green-600 dark:text-green-400 font-bold flex items-center gap-1.5 mt-1">
-                                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> متواجدون يومياً
-                                    </p>
-                                </div>
+                    <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex items-center gap-4 bg-bunni-surface/50 dark:bg-bunni-darkSurface p-4 rounded-2xl border border-bunni-surface dark:border-bunni-darkBorder transition-colors">
+                            <div class="w-12 h-12 shrink-0 bg-white dark:bg-bunni-darkCard rounded-full flex items-center justify-center text-bunni-gold shadow-sm">
+                                <i class="fa-regular fa-clock text-xl"></i>
                             </div>
-
-                            <a href="tel:07819423456" class="flex items-center gap-4 bg-bunni-surface/50 dark:bg-bunni-darkSurface p-4 rounded-2xl border border-bunni-surface dark:border-bunni-darkBorder hover:border-bunni-gold dark:hover:border-bunni-gold transition-colors active:scale-95 group">
-                                <div class="w-12 h-12 shrink-0 bg-white dark:bg-bunni-darkCard rounded-full flex items-center justify-center text-bunni-gold shadow-sm group-hover:bg-bunni-gold group-hover:text-white transition-colors">
-                                    <i class="fa-solid fa-phone-volume text-lg"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-sans text-bunni-latte dark:text-gray-400 font-bold mb-0.5">للطلب والاستفسار</p>
-                                    <p class="text-base font-display font-bold text-bunni-espresso dark:text-white tracking-wider" dir="ltr">0781 942 3456</p>
-                                </div>
-                            </a>
-
-                            <a href="https://instagram.com/bunnicatcafe" target="_blank" class="flex items-center gap-4 bg-bunni-surface/50 dark:bg-bunni-darkSurface p-4 rounded-2xl border border-bunni-surface dark:border-bunni-darkBorder hover:border-pink-500 transition-colors active:scale-95 group">
-                                <div class="w-12 h-12 shrink-0 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-500 rounded-full flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform">
-                                    <i class="fa-brands fa-instagram text-xl"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-sans text-bunni-latte dark:text-gray-400 font-bold mb-0.5">تابعنا على انستكرام</p>
-                                    <p class="text-sm font-display font-bold text-bunni-espresso dark:text-white tracking-wide">@bunnicatcafe</p>
-                                </div>
-                            </a>
-
-                            <a href="https://bunnicafe.com" target="_blank" class="flex items-center gap-4 bg-bunni-surface/50 dark:bg-bunni-darkSurface p-4 rounded-2xl border border-bunni-surface dark:border-bunni-darkBorder hover:border-bunni-gold transition-colors active:scale-95 group">
-                                <div class="w-12 h-12 shrink-0 bg-white dark:bg-bunni-darkCard rounded-full flex items-center justify-center text-bunni-gold shadow-sm group-hover:bg-bunni-gold group-hover:text-white transition-colors">
-                                    <i class="fa-solid fa-globe text-lg"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-sans text-bunni-latte dark:text-gray-400 font-bold mb-0.5">موقعنا الإلكتروني</p>
-                                    <p class="text-sm font-display font-bold text-bunni-espresso dark:text-white tracking-wide">bunnicafe.com</p>
-                                </div>
-                            </a>
+                            <div>
+                                <p class="text-xs font-sans text-bunni-latte dark:text-gray-400 font-bold mb-0.5">أوقات العمل</p>
+                                <p class="text-[15px] font-display font-bold text-bunni-espresso dark:text-white" dir="ltr">07:00 AM - 11:59 PM</p>
+                                <p class="text-[10px] font-sans text-green-600 dark:text-green-400 font-bold flex items-center gap-1.5 mt-1">
+                                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> متواجدون يومياً
+                                </p>
+                            </div>
                         </div>
 
-                        <a href="https://maps.app.goo.gl/Wdx2yekh9Qm9zxCfA?g_st=ic" target="_blank" class="relative z-10 mt-5 block bg-bunni-espresso dark:bg-bunni-gold text-white dark:text-bunni-espresso p-5 rounded-2xl shadow-float transition-transform active:scale-[0.98] group">
-                            <div class="relative z-10 flex items-center gap-4">
-                                <div class="w-12 h-12 shrink-0 bg-white/10 dark:bg-black/10 rounded-full flex items-center justify-center text-bunni-gold dark:text-bunni-espresso border border-white/20 dark:border-black/20">
-                                    <i class="fa-solid fa-location-dot text-xl animate-bounce"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <p class="text-xs font-sans text-bunni-gold dark:text-bunni-mocha font-bold mb-1">موقعنا على الخريطة 📍</p>
-                                    <p class="text-sm font-display md:text-base font-bold leading-snug">بابل - الحلة - شارع ٤٠</p>
-                                </div>
-                                <div class="w-10 h-10 shrink-0 rounded-full bg-bunni-gold dark:bg-bunni-espresso text-bunni-espresso dark:text-white flex items-center justify-center transform group-hover:-translate-x-2 transition-transform">
-                                    <i class="fa-solid fa-arrow-left"></i>
-                                </div>
+                        <a href="tel:07819423456" class="flex items-center gap-4 bg-bunni-surface/50 dark:bg-bunni-darkSurface p-4 rounded-2xl border border-bunni-surface dark:border-bunni-darkBorder hover:border-bunni-gold dark:hover:border-bunni-gold transition-colors active:scale-95 group">
+                            <div class="w-12 h-12 shrink-0 bg-white dark:bg-bunni-darkCard rounded-full flex items-center justify-center text-bunni-gold shadow-sm group-hover:bg-bunni-gold group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-phone-volume text-lg"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-sans text-bunni-latte dark:text-gray-400 font-bold mb-0.5">للطلب والاستفسار</p>
+                                <p class="text-base font-display font-bold text-bunni-espresso dark:text-white tracking-wider" dir="ltr">0781 942 3456</p>
+                            </div>
+                        </a>
+
+                        <a href="https://instagram.com/bunnicatcafe" target="_blank" class="flex items-center gap-4 bg-bunni-surface/50 dark:bg-bunni-darkSurface p-4 rounded-2xl border border-bunni-surface dark:border-bunni-darkBorder hover:border-pink-500 transition-colors active:scale-95 group">
+                            <div class="w-12 h-12 shrink-0 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-500 rounded-full flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform">
+                                <i class="fa-brands fa-instagram text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-sans text-bunni-latte dark:text-gray-400 font-bold mb-0.5">تابعنا على انستكرام</p>
+                                <p class="text-sm font-display font-bold text-bunni-espresso dark:text-white tracking-wide">@bunnicatcafe</p>
+                            </div>
+                        </a>
+
+                        <a href="https://bunnicafe.com" target="_blank" class="flex items-center gap-4 bg-bunni-surface/50 dark:bg-bunni-darkSurface p-4 rounded-2xl border border-bunni-surface dark:border-bunni-darkBorder hover:border-bunni-gold transition-colors active:scale-95 group">
+                            <div class="w-12 h-12 shrink-0 bg-white dark:bg-bunni-darkCard rounded-full flex items-center justify-center text-bunni-gold shadow-sm group-hover:bg-bunni-gold group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-globe text-lg"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-sans text-bunni-latte dark:text-gray-400 font-bold mb-0.5">موقعنا الإلكتروني</p>
+                                <p class="text-sm font-display font-bold text-bunni-espresso dark:text-white tracking-wide">bunnicafe.com</p>
                             </div>
                         </a>
                     </div>
-                </section>
 
-            </main>
-        </div>
+                    <a href="https://maps.app.goo.gl/Wdx2yekh9Qm9zxCfA?g_st=ic" target="_blank" class="relative z-10 mt-5 block bg-bunni-espresso dark:bg-bunni-gold text-white dark:text-bunni-espresso p-5 rounded-2xl shadow-float transition-transform active:scale-[0.98] group">
+                        <div class="relative z-10 flex items-center gap-4">
+                            <div class="w-12 h-12 shrink-0 bg-white/10 dark:bg-black/10 rounded-full flex items-center justify-center text-bunni-gold dark:text-bunni-espresso border border-white/20 dark:border-black/20">
+                                <i class="fa-solid fa-location-dot text-xl animate-bounce"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-xs font-sans text-bunni-gold dark:text-bunni-mocha font-bold mb-1">موقعنا على الخريطة 📍</p>
+                                <p class="text-sm font-display md:text-base font-bold leading-snug">بابل - الحلة - شارع ٤٠</p>
+                            </div>
+                            <div class="w-10 h-10 shrink-0 rounded-full bg-bunni-gold dark:bg-bunni-espresso text-bunni-espresso dark:text-white flex items-center justify-center transform group-hover:-translate-x-2 transition-transform">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+        </main>
         
-        <!-- زر الصعود للأعلى (السهم الذهبي الجديد لسهولة التصفح) -->
-        <button id="backToTop" onclick="window.scrollTo({top:0, behavior:'smooth'})" class="fixed bottom-24 right-5 z-50 bg-bunni-gold text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 transform translate-y-5 hover:bg-bunni-accent active:scale-90">
-            <i class="fa-solid fa-arrow-up text-xl"></i>
+        <!-- زر الرجوع للأعلى السحري -->
+        <button id="backToTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-24 right-5 z-40 bg-bunni-gold text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 transform translate-y-4 hover:bg-bunni-accent active:scale-90">
+            <i class="fa-solid fa-chevron-up text-xl"></i>
         </button>
 
         <!-- زر الواتساب -->
@@ -689,10 +720,14 @@
             const splashScreen = document.getElementById('premium-splash');
             const appContent = document.getElementById('app-content');
             
-            const unlockPage = () => {
-                document.body.classList.remove('splash-locked');
-                // حل نهائي ومضمون لفك تعليق الأجهزة القديمة
-                document.body.style.overflow = '';
+            // منع اللمس فقط فوق الشاشة السوداء دون تجميد الـ body إطلاقاً
+            const preventScroll = (e) => e.preventDefault();
+            if (splashScreen) {
+                splashScreen.addEventListener('touchmove', preventScroll, { passive: false });
+                splashScreen.addEventListener('wheel', preventScroll, { passive: false });
+            }
+
+            const revealApp = () => {
                 if (appContent) {
                     appContent.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
                 }
@@ -700,7 +735,7 @@
 
             if (sessionStorage.getItem('bunni_splash_played')) {
                 if (splashScreen) splashScreen.remove();
-                unlockPage();
+                revealApp();
             } else {
                 let isExiting = false;
 
@@ -709,53 +744,27 @@
                     isExiting = true;
 
                     splashScreen.classList.add('splash-exit');
-                    
-                    unlockPage();
+                    revealApp();
 
                     setTimeout(() => {
-                        if(splashScreen) splashScreen.remove();
+                        if(splashScreen) {
+                            splashScreen.removeEventListener('touchmove', preventScroll);
+                            splashScreen.removeEventListener('wheel', preventScroll);
+                            splashScreen.remove();
+                        }
                         sessionStorage.setItem('bunni_splash_played', 'true');
                     }, 1500);
                 };
 
+                // حماية أخيرة 3.5 ثانية فقط بدلاً من 8 ثوانٍ 
+                setTimeout(executeExitAnimation, 3500);
+
                 const heroImg = new Image();
+                heroImg.onload = () => {
+                    setTimeout(executeExitAnimation, 800); 
+                };
+                heroImg.onerror = executeExitAnimation;
                 heroImg.src = './images/hero.webp';
-                const imgLoadPromise = new Promise((resolve) => {
-                    if (heroImg.complete) resolve();
-                    else {
-                        heroImg.addEventListener('load', resolve);
-                        heroImg.addEventListener('error', resolve); 
-                    }
-                });
-                
-                const logoImg = new Image();
-                logoImg.src = './images/splash-logo-final.png';
-                const logoLoadPromise = new Promise((resolve) => {
-                    if (logoImg.complete) resolve();
-                    else {
-                        logoImg.addEventListener('load', resolve);
-                        logoImg.addEventListener('error', resolve);
-                    }
-                });
-
-                const windowLoadPromise = new Promise((resolve) => {
-                    if (document.readyState === 'complete') {
-                        resolve();
-                    } else {
-                        window.addEventListener('load', resolve);
-                    }
-                });
-
-                const minDisplayPromise = new Promise(resolve => setTimeout(resolve, 3500));
-
-                Promise.all([imgLoadPromise, logoLoadPromise, windowLoadPromise, minDisplayPromise])
-                    .then(() => {
-                        executeExitAnimation();
-                    });
-
-                setTimeout(() => {
-                    executeExitAnimation();
-                }, 8000);
             }
             
             const allImages = document.querySelectorAll('img');
@@ -766,17 +775,19 @@
             });
         });
 
-        // منطق إظهار وإخفاء زر الصعود للأعلى بسلاسة
+        // تشغيل زر الصعود للأعلى
         window.addEventListener('scroll', () => {
-            const backToTopBtn = document.getElementById('backToTop');
-            if (window.scrollY > 400) {
-                backToTopBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-5');
-                backToTopBtn.classList.add('opacity-100', 'translate-y-0');
-            } else {
-                backToTopBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-5');
-                backToTopBtn.classList.remove('opacity-100', 'translate-y-0');
+            const btn = document.getElementById('backToTopBtn');
+            if (btn) {
+                if (window.scrollY > 400) {
+                    btn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+                    btn.classList.add('opacity-100', 'translate-y-0');
+                } else {
+                    btn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+                    btn.classList.remove('opacity-100', 'translate-y-0');
+                }
             }
-        });
+        }, { passive: true });
 
         function toggleTheme() {
             const htmlTag = document.documentElement;
@@ -816,14 +827,13 @@
                     if(item.popular) {
                         hasBestsellers = true;
                         const itemImg = item.image || cat.defaultImage;
-                        // تم إضافة loading="lazy" و decoding="async" لتسريع التحميل على الأجهزة القديمة
                         html += `
                             <div class="min-w-[220px] w-[220px] bg-white dark:bg-bunni-darkCard rounded-3xl p-3 shadow-sm border border-bunni-surface dark:border-bunni-darkBorder snap-center relative transition-colors">
                                 <div class="bestseller-badge absolute top-4 right-4 bg-bunni-accent text-white font-sans text-[10px] font-bold px-3 py-1 rounded-full z-10">
                                     <i class="fa-solid fa-star text-[8px] ml-1"></i> ننصح به
                                 </div>
                                 <div class="h-32 w-full rounded-2xl overflow-hidden mb-3 bg-bunni-surface dark:bg-bunni-darkSurface pointer-events-none select-none">
-                                    <img src="${itemImg}" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover select-none pointer-events-none" draggable="false" oncontextmenu="return false;" onerror="this.src='https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=600&q=80'">
+                                    <img src="${itemImg}" alt="${item.name}" loading="lazy" decoding="async" class="w-full h-full object-cover select-none pointer-events-none" draggable="false" oncontextmenu="return false;" onerror="this.src='https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=600&q=80'">
                                 </div>
                                 <h3 class="font-display font-bold text-bunni-espresso dark:text-white text-base line-clamp-1">${item.name}</h3>
                                 <div class="flex items-center justify-between mt-2">
@@ -892,6 +902,7 @@
             }, 50); 
         }
 
+        // بناء المنيو بشكل تدريجي (السحر الذي يمنع اختناق الـ Poco C40)
         function renderMenu(data) {
             const container = document.getElementById('menuContainer');
             if(!container) return;
@@ -907,102 +918,64 @@
                 return;
             }
 
-            let html = '';
-            data.forEach((category) => {
-                if(category.id === 'study_room') return;
-                if(category.id === 'add_ons') return;
+            let i = 0;
+            function renderNextCategory() {
+                if (i >= data.length) {
+                    setTimeout(setupScrollSpy, 300);
+                    return;
+                }
 
-                html += `
-                    <section id="section-${category.id}" class="menu-category w-full">
-                        <div class="flex items-center mb-5">
-                            <h2 class="text-2xl font-display font-bold text-bunni-espresso dark:text-white tracking-tight">
-                                ${category.title}
-                            </h2>
-                            <div class="flex-grow border-b border-dashed border-bunni-gold/30 mr-4"></div>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                `;
-
-                category.items.forEach(item => {
-                    const itemImg = item.image || category.defaultImage;
-                    const badgeHTML = item.badge 
-                        ? `<span class="bg-bunni-surface dark:bg-bunni-darkSurface text-bunni-espresso dark:text-white font-sans font-bold text-[10px] px-2 py-1 rounded-md border border-bunni-gold/20">${item.badge}</span>` 
-                        : '';
-                    const descHTML = item.description 
-                        ? `<p class="text-[12px] font-sans text-bunni-latte dark:text-gray-400 mt-1.5 leading-snug line-clamp-2">${item.description}</p>` 
-                        : '';
-
-                    // تم إضافة loading="lazy" و decoding="async" لتسريع التحميل على الأجهزة القديمة
-                    html += `
-                        <div class="bg-white dark:bg-bunni-darkCard rounded-[20px] p-2.5 shadow-sm border border-bunni-surface dark:border-bunni-darkBorder flex items-center gap-3 transition-colors active:scale-[0.98]">
-                            <div class="flex-1 py-1 pr-1">
-                                <div class="flex items-start justify-between mb-1">
-                                    <h3 class="font-display font-bold text-bunni-espresso dark:text-white text-[15px] leading-tight">${item.name}</h3>
-                                </div>
-                                ${descHTML}
-                                <div class="flex items-center gap-2 mt-2">
-                                    <span class="font-display font-black text-bunni-gold text-base">${item.price}</span>
-                                    ${badgeHTML}
-                                </div>
+                const category = data[i];
+                if(category.id !== 'study_room' && category.id !== 'add_ons') {
+                    let html = `
+                        <section id="section-${category.id}" class="menu-category w-full">
+                            <div class="flex items-center mb-5">
+                                <h2 class="text-2xl font-display font-bold text-bunni-espresso dark:text-white tracking-tight">
+                                    ${category.title}
+                                </h2>
+                                <div class="flex-grow border-b border-dashed border-bunni-gold/30 mr-4"></div>
                             </div>
-                            
-                            <div class="w-24 h-24 shrink-0 rounded-[16px] overflow-hidden bg-bunni-surface dark:bg-bunni-darkSurface relative shadow-inner pointer-events-none select-none">
-                                <img src="${itemImg}" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover select-none pointer-events-none" draggable="false" oncontextmenu="return false;" onerror="this.src='https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=600&q=80'">
-                                <div class="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent"></div>
-                            </div>
-                        </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     `;
-                });
 
-                html += `</div>`;
+                    category.items.forEach(item => {
+                        const itemImg = item.image || category.defaultImage;
+                        const badgeHTML = item.badge ? `<span class="bg-bunni-surface dark:bg-bunni-darkSurface text-bunni-espresso dark:text-white font-sans font-bold text-[10px] px-2 py-1 rounded-md border border-bunni-gold/20">${item.badge}</span>` : '';
+                        const descHTML = item.description ? `<p class="text-[12px] font-sans text-bunni-latte dark:text-gray-400 mt-1.5 leading-snug line-clamp-2">${item.description}</p>` : '';
 
-                if (category.rules) {
-                    html += `
-                        <div class="mt-5 bg-bunni-surface/50 dark:bg-bunni-darkSurface border border-bunni-gold/20 rounded-[20px] p-4 relative overflow-hidden transition-colors">
-                            <i class="fa-solid fa-shield-cat absolute -left-6 -bottom-6 text-7xl text-bunni-gold/5 rotate-[-15deg]"></i>
-                            <h4 class="font-display font-bold text-bunni-espresso dark:text-white mb-3 flex items-center text-sm relative z-10">
-                                <i class="fa-solid fa-circle-exclamation text-bunni-accent ml-2 text-base"></i> تعليمات ${category.title}
-                            </h4>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4 text-[12px] font-sans font-medium text-bunni-mocha dark:text-gray-300 relative z-10">
-                    `;
-                    category.rules.forEach(rule => {
+                        // loading="lazy" و decoding="async" هنا هما ما يجعلان الهاتف يتنفس براحة
                         html += `
-                            <div class="flex items-start bg-white/60 dark:bg-black/20 p-2 rounded-lg border border-white dark:border-transparent">
-                                <i class="fa-solid fa-check text-bunni-gold mt-1 ml-2 text-[9px]"></i>
-                                <span class="leading-snug">${rule}</span>
+                            <div class="bg-white dark:bg-bunni-darkCard rounded-[20px] p-2.5 shadow-sm border border-bunni-surface dark:border-bunni-darkBorder flex items-center gap-3 transition-colors active:scale-[0.98]">
+                                <div class="flex-1 py-1 pr-1">
+                                    <div class="flex items-start justify-between mb-1">
+                                        <h3 class="font-display font-bold text-bunni-espresso dark:text-white text-[15px] leading-tight">${item.name}</h3>
+                                    </div>
+                                    ${descHTML}
+                                    <div class="flex items-center gap-2 mt-2">
+                                        <span class="font-display font-black text-bunni-gold text-base">${item.price}</span>
+                                        ${badgeHTML}
+                                    </div>
+                                </div>
+                                <div class="w-24 h-24 shrink-0 rounded-[16px] overflow-hidden bg-bunni-surface dark:bg-bunni-darkSurface relative shadow-inner pointer-events-none select-none">
+                                    <img src="${itemImg}" alt="${item.name}" loading="lazy" decoding="async" class="w-full h-full object-cover select-none pointer-events-none" draggable="false" oncontextmenu="return false;" onerror="this.src='https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=600&q=80'">
+                                    <div class="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent"></div>
+                                </div>
                             </div>
                         `;
                     });
-                    html += `</div></div>`;
+
+                    html += `</div></section>`;
+                    container.insertAdjacentHTML('beforeend', html);
                 }
-
-                html += `</section>`;
-
-                if (category.id === 'drip_coffee') {
-                    const addOnsCategory = menuData.find(cat => cat.id === 'add_ons');
-                    if (addOnsCategory) {
-                        html += `
-                            <div class="w-full mt-6 mb-2">
-                                <h3 class="font-display font-bold text-bunni-espresso dark:text-white text-lg mb-3 flex items-center">
-                                    <i class="fa-solid fa-plus-circle text-bunni-gold ml-2"></i> ${addOnsCategory.title}
-                                </h3>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                        `;
-                        addOnsCategory.items.forEach(item => {
-                            html += `
-                                <div class="bg-white/60 dark:bg-bunni-darkCard/60 rounded-xl p-3 flex items-center justify-between border border-bunni-gold/20">
-                                    <span class="font-display font-bold text-bunni-espresso dark:text-white text-[14px]">${item.name}</span>
-                                    <span class="font-display font-black text-bunni-accent text-base">${item.price}</span>
-                                </div>
-                            `;
-                        });
-                        html += `</div></div>`;
-                    }
-                }
-            });
-
-            container.innerHTML = html;
+                
+                i++;
+                // هنا السر: نخبر الهاتف أن يرتاح قليلاً ويرسم العناصر قبل الانتقال للقسم الذي يليه
+                requestAnimationFrame(renderNextCategory);
+            }
+            
+            // تنظيف الحاوية قبل البدء في حالة البحث
+            container.innerHTML = '';
+            requestAnimationFrame(renderNextCategory);
         }
 
         function searchMenu() {
@@ -1073,11 +1046,11 @@
             sections.forEach(sec => observer.observe(sec));
         }
 
+        // تشغيل فوري وبدون تأخير
         window.onload = () => {
             renderBestsellers();
             renderNav();
             renderMenu(menuData);
-            setTimeout(setupScrollSpy, 300);
         };
     </script>
 </body>
@@ -1085,4 +1058,5 @@
 
 
 ```
+
 
